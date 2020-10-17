@@ -1,0 +1,14 @@
+.breadcrumbs {
+  background-color: var(--white);
+  height: 50px;
+
+  &__items {
+      display: flex;
+      align-items: center;
+
+      &-link {
+        text-decoration: none;
+        cursor: pointer;
+      }
+  }
+}
