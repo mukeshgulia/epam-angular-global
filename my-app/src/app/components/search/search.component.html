@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md md-form mt-0 offset-2">
-      <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="searchText" name="searchText">
+    <div class="col stretch-left">
+      <input class="form-control" type="text" placeholder="Type a course name" aria-label="Search" [(ngModel)]="searchText" name="searchText">
     </div>
-    <div class="col-md">
+    <div class="col-md-auto">
       <button class="btn btn-success" (click)="printSearch()">Search</button>
     </div>
   </div>

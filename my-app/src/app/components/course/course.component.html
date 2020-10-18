@@ -1,15 +1,15 @@
-<div class="container border border-primary">
+<div class="container-fluid border border-primary">
   <div class="row border border-primary">
-    <div class="col-md">
+    <div class="col-lg">
       <p>Video Course {{course.id}}. {{course.title}}</p>
     </div>
-    <div class="col-md">
+    <div class="col-lg">
       <p>Duration: {{ course.duration }} mins , Created on: {{ getDate(course.creationDate) }}</p>
     </div>
   </div>
   <div class="row border border-primary justify-content-center">
-    <div class="col-md border">{{ course.description }}</div>
-    <div class="col-md border text-center">
+    <div class="col-lg border">{{ course.description }}</div>
+    <div class="col-lg border text-center">
       <button class="btn btn-primary"
         (click)="edit()">Edit</button>
       <button class="btn btn-primary offset-1"

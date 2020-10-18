@@ -1,4 +1,14 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy
+} from '@angular/core';
+
 import { Course } from 'src/app/models/course';
 
 @Component({
@@ -6,12 +16,24 @@ import { Course } from 'src/app/models/course';
   templateUrl: './courses-page.component.html',
   styleUrls: ['./courses-page.component.scss']
 })
-export class CoursesPageComponent implements OnInit, OnChanges {
+export class CoursesPageComponent implements
+OnInit,
+OnChanges,
+AfterContentInit,
+AfterContentChecked,
+AfterViewInit,
+AfterViewChecked,
+OnDestroy {
 
   courses: Course[] = [];
+
   constructor() {
     console.log('Called constructor!');
    }
+
+  public onDeleteCourse(id: number): void {
+      this.courses.splice(id, 1);
+  }
 
   ngOnChanges(): void {
     console.log('Called ngOnChanges!');
@@ -28,4 +50,23 @@ export class CoursesPageComponent implements OnInit, OnChanges {
     console.log('Called noOnInit!');
   }
 
+  ngAfterContentInit(): void {
+    console.log('Called ngAfterContentInit!');
+  }
+
+  ngAfterContentChecked(): void {
+    console.log('Called ngAfterContentChecked!');
+  }
+
+  ngAfterViewInit(): void {
+    console.log('Called ngAfterViewInit!');
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('Called ngAfterViewChecked!');
+  }
+
+  ngOnDestroy(): void {
+    console.log('Called ngOnDestroy!');
+  }
 }

@@ -1,5 +1,9 @@
 .header {
-  height: 40px;
-  width: 100%;
-  background-color: darkslategray;
+  background-color: #292826;
+
+  &__link {
+      text-decoration: none;
+      cursor: pointer;
+      color: honeydew;
+    }
 }

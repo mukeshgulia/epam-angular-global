@@ -1,11 +1,15 @@
-<div class="container bg-light">
+<div class="container-fluid bg-light">
   <div class="row">
-    <app-search></app-search>
+    <div class="col stretch-left">
+      <app-search></app-search>
+  </div>
+  <div class="col-md-auto">
     <app-add-course></app-add-course>
+  </div>
   </div>
   <div class="coursesPage">
     <div class="coursesPage__item" *ngFor="let course of courses">
-      <app-course [course] = "course"></app-course>
+      <app-course [course] = "course" (deleteCourse)="onDeleteCourse($event)"></app-course>
     </div>
   </div>
   <div class="row justify-content-center">
