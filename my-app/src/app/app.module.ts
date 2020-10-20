@@ -1,18 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { LogoComponent } from './components/logo/logo.component';
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { CourseComponent } from './components/course/course.component';
-import { CoursesPageComponent } from './components/courses-page/courses-page.component';
-import { DatePipe } from '@angular/common';
-import { SearchComponent } from './components/search/search.component';
-import { AddCourseComponent } from './components/add-course/add-course.component';
-import { FormsModule } from '@angular/forms';
+import { MainLayoutComponent} from './main-layout/main-layout.component';
+import { ContentProjectionComponent } from './main-layout/content-projection/content-projection.component';
+import { HeaderComponent } from './main-layout/header/header.component';
+import { FooterComponent } from './main-layout/footer/footer.component';
+import { LogoComponent } from './main-layout/logo/logo.component';
+import { BreadcrumbsComponent } from './main-layout/content-projection/breadcrumbs/breadcrumbs.component';
+import { CourseComponent } from './main-layout/content-projection/course/course.component';
+import { CoursesPageComponent } from './main-layout/content-projection/courses-page/courses-page.component';
+import { SearchComponent } from './main-layout/content-projection/search/search.component';
+import { AddCourseComponent } from './main-layout/content-projection/add-course/add-course.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     CourseComponent,
     CoursesPageComponent,
     SearchComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    MainLayoutComponent,
+    ContentProjectionComponent
   ],
   imports: [
     BrowserModule,
