@@ -1,17 +1,18 @@
-<div class="container-fluid border border-primary">
-  <div class="row border border-primary">
+<div class="container">
+  <div class="row">
     <!-- Task 2  {{object.property}}-->
     <div class="col-lg">
     <!-- Task 2  Details-->
-    <p>Video Course {{course.id}}. {{course.title}}</p>
+    <strong>Video Course {{course.id}}. {{course.title}}</strong>
     </div>
     <div class="col-lg">
-      <p><i class="far fa-clock"></i> {{ course.duration }} mins   <i class="far fa-calendar-alt"></i> {{ getDate(course.creationDate) }}</p>
+      <span><i class="far fa-clock"></i> {{ course.duration }} mins</span>
+      <span style="margin-left: 20px;"><i class="far fa-calendar-alt"></i> {{ getDate(course.creationDate) }}</span>
     </div>
   </div>
-  <div class="row border border-primary justify-content-center">
-    <div class="col-lg border">{{ course.description }}</div>
-    <div class="col-lg border text-center">
+  <div class="row justify-content-center">
+    <div class="col-lg">{{ course.description }}</div>
+    <div class="col-lg text-center">
       <button class="btn btn-primary"
         (click)="edit()">Edit</button>
       <button class="btn btn-primary offset-1"
