@@ -1,10 +1,12 @@
 <div class="container-fluid border border-primary">
   <div class="row border border-primary">
+    <!-- Task 2  {{object.property}}-->
     <div class="col-lg">
-      <p>Video Course {{course.id}}. {{course.title}}</p>
+    <!-- Task 2  Details-->
+    <p>Video Course {{course.id}}. {{course.title}}</p>
     </div>
     <div class="col-lg">
-      <p>Duration: {{ course.duration }} mins , Created on: {{ getDate(course.creationDate) }}</p>
+      <p><i class="far fa-clock"></i> {{ course.duration }} mins   <i class="far fa-calendar-alt"></i> {{ getDate(course.creationDate) }}</p>
     </div>
   </div>
   <div class="row border border-primary justify-content-center">

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Course } from 'src/app/models/course';
 
 @Component({
@@ -7,16 +7,16 @@ import { Course } from 'src/app/models/course';
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent {
 
-  @Input() course: Course;
+  // Task 2
+  @Output() private deleteCourse = new EventEmitter<number>();
 
-  @Output() deleteCourse = new EventEmitter<number>();
+  // Task 2
+  @Input() public course: Course;
+
 
   constructor(public datepipe: DatePipe) { }
-
-  ngOnInit(): void {
-  }
 
   public getDate(date: Date): string {
     return this.datepipe.transform(date, 'dd MMM, yyyy');

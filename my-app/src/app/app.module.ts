@@ -31,8 +31,8 @@ import { AddCourseComponent } from './main-layout/content-projection/add-course/
     ContentProjectionComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     FormsModule
   ],
   providers: [ DatePipe],
