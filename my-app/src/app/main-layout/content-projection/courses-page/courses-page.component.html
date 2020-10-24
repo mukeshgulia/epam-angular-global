@@ -1,0 +1,20 @@
+<div class="container bg-light">
+  <div class="row row-m-b">
+      <div class="col justify-content-around d-flex flex-column">
+        <!-- Task 2: Search -->
+        <app-search></app-search>
+      </div>
+      <div class="col-md-auto">
+        <!-- Task 2: Add Course  -->
+        <app-add-course></app-add-course>
+      </div>
+  </div>
+    <!-- Task 2: Use ngFor -->
+    <div class="coursesPage" *ngFor="let course of courses">
+      <app-course [course] = "course" (courseId)="onDeleteCourse($event)"></app-course>
+    </div>
+  <div class="row justify-content-center">
+    <!-- Task 2  Load More-->
+    <a href="#">Load More</a>
+  </div>
+</div>

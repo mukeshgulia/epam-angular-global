@@ -1,3 +1,5 @@
+// Task 2: Learn ngOnChanges and other interface call orders
+
 import {
   Component,
   OnInit,
@@ -25,7 +27,7 @@ AfterViewInit,
 AfterViewChecked,
 OnDestroy {
 
-  courses: Course[] = [];
+  public courses: Course[] = [];
 
   constructor() {
     console.log('Called constructor!');
@@ -35,11 +37,11 @@ OnDestroy {
       this.courses.splice(id, 1);
   }
 
-  ngOnChanges(): void {
+  public ngOnChanges(): void {
     console.log('Called ngOnChanges!');
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const desc = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus quam neque, sit amet tempus ipsum tempor nec. Maecenas tincidunt, lectus non faucibus dapibus, metus velit ultricies ipsum, eget tincidunt est massa vitae diam. Aliquam pellentesque neque ipsum, vitae dignissim sem lobortis non.';
 
     for (let i = 0 ; i < 3; i++) {
@@ -50,23 +52,23 @@ OnDestroy {
     console.log('Called noOnInit!');
   }
 
-  ngAfterContentInit(): void {
+  public ngAfterContentInit(): void {
     console.log('Called ngAfterContentInit!');
   }
 
-  ngAfterContentChecked(): void {
+  public ngAfterContentChecked(): void {
     console.log('Called ngAfterContentChecked!');
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     console.log('Called ngAfterViewInit!');
   }
 
-  ngAfterViewChecked(): void {
+  public ngAfterViewChecked(): void {
     console.log('Called ngAfterViewChecked!');
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     console.log('Called ngOnDestroy!');
   }
 }
