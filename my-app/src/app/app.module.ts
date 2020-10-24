@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
@@ -35,7 +34,7 @@ import { AddCourseComponent } from './main-layout/content-projection/add-course/
     BrowserModule,
     FormsModule
   ],
-  providers: [ DatePipe],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

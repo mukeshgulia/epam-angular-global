@@ -11,7 +11,7 @@
   </div>
     <!-- Task 2: Use ngFor -->
     <div class="coursesPage" *ngFor="let course of courses">
-      <app-course [course] = "course" (deleteCourse)="onDeleteCourse($event)"></app-course>
+      <app-course [course] = "course" (courseId)="onDeleteCourse($event)"></app-course>
     </div>
   <div class="row justify-content-center">
     <!-- Task 2  Load More-->
