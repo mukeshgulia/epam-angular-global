@@ -10,7 +10,7 @@ import { Course } from 'src/app/models/course';
 export class CourseComponent {
 
   // Task 2
-  @Output() private deleteCourse = new EventEmitter<number>();
+  @Output() public deleteCourse = new EventEmitter<number>();
 
   // Task 2
   @Input() public course: Course;

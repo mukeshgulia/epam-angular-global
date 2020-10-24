@@ -27,7 +27,7 @@ AfterViewInit,
 AfterViewChecked,
 OnDestroy {
 
-  courses: Course[] = [];
+  public courses: Course[] = [];
 
   constructor() {
     console.log('Called constructor!');
