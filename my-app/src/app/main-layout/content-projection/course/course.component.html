@@ -3,7 +3,7 @@
     <!-- Task 2  {{object.property}}-->
     <div class="col-lg">
     <!-- Task 2  Details-->
-    <strong>Video Course {{course.id}}. {{course.title}}</strong>
+    <strong>Video Course {{course?.id}}. {{course.title}}</strong>
     </div>
     <div class="col-lg">
       <span><i class="far fa-clock"></i> {{ course.duration }} mins</span>
@@ -14,9 +14,9 @@
     <div class="col-lg">{{ course.description }}</div>
     <div class="col-lg text-center">
       <button class="btn btn-primary"
-        (click)="edit()">Edit</button>
+        (click)="edit()" id="edit-button">Edit</button>
       <button class="btn btn-primary offset-1"
-        (click)="delete()">Delete</button>
+        (click)="delete()" id="delete-button">Delete</button>
 
     </div>
   </div>
