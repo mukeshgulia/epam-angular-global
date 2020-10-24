@@ -25,7 +25,7 @@ describe('CourseComponent', () => {
 
   });
 
-  it('host should get course as input', () => {
+  it('should receive course as input from host', () => {
     expect(testHostFixture.nativeElement.querySelector('app-course').innerText).toContain(courseContent.title);
   });
 
