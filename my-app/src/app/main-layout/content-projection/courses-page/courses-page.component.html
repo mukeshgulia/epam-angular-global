@@ -10,11 +10,22 @@
       </div>
   </div>
     <!-- Task 2: Use ngFor -->
-    <div class="coursesPage" *ngFor="let course of courses">
-      <app-course [course] = "course" (courseId)="onDeleteCourse($event)"></app-course>
+    <div
+      class="coursesPage"
+      *ngIf="courses?.length; else elseBlock">
+
+      <app-course
+        *ngFor="let course of courses"
+        [course] = "course"
+        (courseId)="onDeleteCourse($event)">
+      </app-course>
+
+      <div class="row justify-content-center bg-light">
+        <!-- Task 2  Load More-->
+        <a href="#">Load More</a>
+      </div>
     </div>
-  <div class="row justify-content-center">
-    <!-- Task 2  Load More-->
-    <a href="#">Load More</a>
+    <ng-template #elseBlock>
+        <p class="row justify-content-center" style="margin-top: 10px;">No Data. Feel free to add new app-add-course</p>
+    </ng-template>
   </div>
-</div>

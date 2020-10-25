@@ -14,6 +14,8 @@ import { CourseComponent } from './main-layout/content-projection/course/course.
 import { CoursesPageComponent } from './main-layout/content-projection/courses-page/courses-page.component';
 import { SearchComponent } from './main-layout/content-projection/search/search.component';
 import { AddCourseComponent } from './main-layout/content-projection/add-course/add-course.component';
+import { HighlightDirective } from './core/directives/highlight.directive';
+import { DateHelper } from './core/utils/date-helper';
 
 @NgModule({
   declarations: [
@@ -27,14 +29,15 @@ import { AddCourseComponent } from './main-layout/content-projection/add-course/
     SearchComponent,
     AddCourseComponent,
     MainLayoutComponent,
-    ContentProjectionComponent
+    ContentProjectionComponent,
+    HighlightDirective
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DateHelper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
