@@ -2,7 +2,7 @@
   <div class="row row-row-margin-bottom_30">
       <div class="col justify-content-around d-flex flex-column">
         <!-- Task 2: Search -->
-        <app-search></app-search>
+        <app-search (search)="filter($event)"></app-search>
       </div>
       <div class="col-md-auto">
         <!-- Task 2: Add Course  -->
@@ -12,10 +12,10 @@
     <!-- Task 2: Use ngFor -->
     <div
       class="coursesPage"
-      *ngIf="courses?.length; else elseBlock">
+      *ngIf="coursesView?.length; else elseBlock">
 
       <app-course
-        *ngFor="let course of courses"
+        *ngFor="let course of coursesView | orderBy"
         [course] = "course"
         (courseId)="onDeleteCourse($event)">
       </app-course>

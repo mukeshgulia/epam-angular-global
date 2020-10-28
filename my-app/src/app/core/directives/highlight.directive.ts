@@ -24,10 +24,10 @@ export class HighlightDirective implements AfterViewChecked{
     todayMinus14Days.setHours(0, 0, 0, 0);
 
     if (courseDate < today && courseDate >= todayMinus14Days) {
-      this.renderer.setStyle(this.element.nativeElement, 'border', `1px solid green`);
+      this.renderer.setStyle(this.element.nativeElement, 'border', `3px solid green`);
 
     } else if (courseDate > today) {
-      this.renderer.setStyle(this.element.nativeElement, 'border', `1px solid blue`);
+      this.renderer.setStyle(this.element.nativeElement, 'border', `3px solid blue`);
     }
   }
 }
