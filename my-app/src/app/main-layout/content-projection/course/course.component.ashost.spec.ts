@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Course } from 'src/app/models/course';
 
 import { CourseComponent } from './course.component';
@@ -27,13 +28,14 @@ describe('CourseComponent', () => {
 
   it('should receive course as input from host', () => {
     expect(hostFixture.nativeElement.querySelector('app-course').innerText).toContain(courseContent.title);
+    // hostFixture.debugElement.query(By.css('app-course'))
   });
 
   it('should remvove app-course component from host when delete is clicked', fakeAsync(() => {
     spyOn(hostComponent, 'onDeleteCourse');
-    const s = hostFixture.debugElement.nativeElement.querySelector('#delete-button');
-    s.click();
-    tick();
+    const deleteButton = hostFixture.debugElement.nativeElement.querySelector('#delete-button');
+    deleteButton.click();
+    // tick();
     expect(hostComponent.onDeleteCourse).toHaveBeenCalled();
   }));
 

@@ -17,7 +17,7 @@ describe('CourseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseComponent);
     component = fixture.componentInstance;
-    component.course = new Course(1, 'Course title', new Date(), 100, 'Course description');
+    component.course = { id: 1, title: 'Course title', creationDate: new Date(), duration: 100, description: 'Course description' };
     fixture.detectChanges();
   });
 
@@ -25,13 +25,12 @@ describe('CourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call edit when click edit button', fakeAsync(() => {
+  it('should call edit when click edit button', () => {
     spyOn(component, 'edit');
     const edit = fixture.debugElement.nativeElement.querySelector('#edit-button');
     edit.click();
-    tick();
     expect(component.edit).toHaveBeenCalled();
-  }));
+  });
 
 
   it('should emit course id on delete', () => {
