@@ -83,7 +83,7 @@ OnDestroy {
 
   private addCourse(name: string, date: Date, topRated: boolean): void {
     const desc: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus quam neque, sit amet tempus ipsum tempor nec. Maecenas tincidunt, lectus non faucibus dapibus, metus velit ultricies ipsum, eget tincidunt est massa vitae diam. Aliquam pellentesque neque ipsum, vitae dignissim sem lobortis non.';
-    const course: Course = new Course(1, name, date, 120, desc);
+    const course: Course = new Course(1, name, date, 122, desc);
     course.topRated = topRated;
     this.courses.push(course);
   }
