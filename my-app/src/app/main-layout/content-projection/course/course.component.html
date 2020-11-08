@@ -6,8 +6,12 @@
     <!-- Task 2  {{object.property}}-->
     <div class="col-lg">
     <!-- Task 2  Details-->
+<<<<<<< HEAD
     <strong>Video Course {{course.id}}. {{ course.title | uppercase }}</strong>
     <span *ngIf="course.topRated"><i class="fas fa-star fa-fw"></i></span>
+=======
+    <strong>Video Course {{course?.id}}. {{course.title}}</strong>
+>>>>>>> 58cb436fcb5a54da9722f1971c80bcf89642996c
     </div>
     <div class="col-lg">
       <span><i class="far fa-clock"></i> {{ course.duration | duration }}</span>
@@ -18,9 +22,9 @@
     <div class="col-lg">{{ course.description }}</div>
     <div class="col-lg text-center">
       <button class="btn btn-primary"
-        (click)="edit()">Edit</button>
+        (click)="edit()" id="edit-button">Edit</button>
       <button class="btn btn-primary offset-1"
-        (click)="delete()">Delete</button>
+        (click)="delete()" id="delete-button">Delete</button>
 
     </div>
   </div>
