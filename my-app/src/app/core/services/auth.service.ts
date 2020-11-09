@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,7 @@ export class AuthService {
     return false;
   }
 
-  public getUserInfo()
+  public getUserInfo(): User {
+    return null;
+  }
 }

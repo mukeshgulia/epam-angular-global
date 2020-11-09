@@ -1,5 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Course } from 'src/app/models/course';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourseComponent } from './course.component';
 
@@ -17,7 +16,14 @@ describe('CourseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseComponent);
     component = fixture.componentInstance;
-    component.course = { id: 1, title: 'Course title', creationDate: new Date(), duration: 100, description: 'Course description' };
+    component.course =
+    {
+      id: 1,
+      title: 'Course title',
+      creationDate: new Date(),
+      duration: 100, description: 'Course description',
+      topRated: false
+    };
     fixture.detectChanges();
   });
 

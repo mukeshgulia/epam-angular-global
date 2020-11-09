@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { Course } from 'src/app/models/course';
 
 import { CourseComponent } from './course.component';
@@ -51,7 +50,7 @@ describe('CourseComponent', () => {
     }
 
     public onDeleteCourse(id: number): void {
-      if( this.course.id === id ) {
+      if ( this.course.id === id ) {
         this.course = null;
       }
   }

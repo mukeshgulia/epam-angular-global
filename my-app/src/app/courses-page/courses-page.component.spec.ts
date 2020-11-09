@@ -38,7 +38,7 @@ describe('CoursesPageComponent', () => {
   it('should contain add-course component', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('app-add-course')).toBeDefined();;
+    expect(compiled.querySelector('app-add-course')).toBeDefined();
   });
 
 
@@ -47,7 +47,7 @@ describe('CoursesPageComponent', () => {
     const compiled = fixture.nativeElement;
     fixture.whenStable()
     .then(() => {
-      expect(compiled.querySelector('app-course')).toBeDefined();;
+      expect(compiled.querySelector('app-course')).toBeDefined();
     })
     .then(() => {
       const courses = fixture.debugElement.queryAll(By.css('app-course'));
