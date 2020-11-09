@@ -11,9 +11,9 @@ import {
   OnDestroy
 } from '@angular/core';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
-import { CourseService } from 'src/app/core/services/course.service';
+import { CourseService } from 'src/app/core/services/course/course.service';
 
-import { Course } from 'src/app/models/course';
+import { Course } from 'src/app/core/services/course/model/course';
 
 @Component({
   selector: 'app-courses-page',

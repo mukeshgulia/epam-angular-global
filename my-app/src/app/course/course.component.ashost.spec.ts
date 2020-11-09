@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { Course } from 'src/app/models/course';
+import { Course } from 'src/app/core/services/course/model/course';
 
 import { CourseComponent } from './course.component';
 

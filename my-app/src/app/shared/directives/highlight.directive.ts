@@ -1,5 +1,5 @@
 import { AfterViewChecked, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { Course } from 'src/app/models/course';
+import { Course } from 'src/app/core/services/course/model/course';
 import { DateHelper } from '../../shared/utils/date-helper';
 
 @Directive({

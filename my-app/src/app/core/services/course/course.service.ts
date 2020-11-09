@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Course } from 'src/app/models/course';
-import { DateHelper } from '../../shared/utils/date-helper';
+import { Course } from 'src/app/core/services/course/model/course';
+import { DateHelper } from 'src/app/shared/utils/date-helper';
 
 @Injectable({
   providedIn: 'root'
