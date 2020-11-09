@@ -5,7 +5,10 @@
       <input class="form-control" type="text" placeholder="Type a course name" aria-label="Search" [(ngModel)]="searchText" name="searchText">
     </div>
     <div class="col-md-auto">
-      <button class="btn btn-success" (click)="printSearch()">Search</button>
+      <button class="btn btn-success"
+      (click)="onSearch()"
+      (click)="printSearch()"
+      >Search</button>
     </div>
   </div>
 </div>

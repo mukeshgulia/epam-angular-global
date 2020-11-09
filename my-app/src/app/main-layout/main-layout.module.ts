@@ -12,6 +12,11 @@ import { MainLayoutComponent } from './main-layout.component';
 import { LogoComponent } from './logo/logo.component';
 import { SearchComponent } from './content-projection/search/search.component';
 import { FormsModule } from '@angular/forms';
+import { DurationPipe } from '../core/pipes/duration.pipe';
+import { OrderByPipe } from '../core/pipes/order-by.pipe';
+import { DateHelper } from '../core/utils/date-helper';
+import { HighlightDirective } from '../core/directives/highlight.directive';
+import { FilterPipe } from '../core/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -24,12 +29,16 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     MainLayoutComponent,
     LogoComponent,
-    SearchComponent
+    SearchComponent,
+    HighlightDirective,
+    DurationPipe,
+    OrderByPipe
 ],
   imports: [
     CommonModule,
     FormsModule
   ],
+  providers: [DateHelper, FilterPipe],
   exports: [MainLayoutComponent]
 })
 export class MainLayoutModule { }

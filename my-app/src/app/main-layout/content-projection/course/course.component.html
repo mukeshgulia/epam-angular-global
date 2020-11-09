@@ -1,12 +1,16 @@
-<div class="container">
+<div class="container"
+  [appHighlight] = "course"
+  [ngClass]="{'course__topRated': course.topRated}">
+
   <div class="row">
     <!-- Task 2  {{object.property}}-->
     <div class="col-lg">
     <!-- Task 2  Details-->
-    <strong>Video Course {{course?.id}}. {{course.title}}</strong>
+    <strong>Video Course {{course.id}}. {{ course.title | uppercase }}</strong>
+    <span *ngIf="course.topRated"><i class="fas fa-star fa-fw"></i></span>
     </div>
     <div class="col-lg">
-      <span><i class="far fa-clock"></i> {{ course.duration }} mins</span>
+      <span><i class="far fa-clock"></i> {{ course.duration | duration }}</span>
       <span style="margin-left: 20px;"><i class="far fa-calendar-alt"></i> {{ course?.creationDate | date: 'dd MMM, yyyy' }}</span>
     </div>
   </div>
