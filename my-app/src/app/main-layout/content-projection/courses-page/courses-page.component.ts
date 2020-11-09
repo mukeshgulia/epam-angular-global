@@ -10,9 +10,8 @@ import {
   AfterViewChecked,
   OnDestroy
 } from '@angular/core';
-import { FilterPipe } from 'src/app/core/pipes/filter.pipe';
+import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 import { CourseService } from 'src/app/core/services/course.service';
-import { DateHelper } from 'src/app/core/utils/date-helper';
 
 import { Course } from 'src/app/models/course';
 
