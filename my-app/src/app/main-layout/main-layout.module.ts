@@ -10,8 +10,10 @@ import { HeaderComponent } from './header/header.component';
 import { MainLayoutComponent } from './main-layout.component';
 import { LogoComponent } from './logo/logo.component';
 import { SearchComponent } from './../search/search.component';
+
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { LoginModule } from '../login/login.module';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,13 @@ import { SharedModule } from '../shared/shared.module';
     FooterComponent,
     MainLayoutComponent,
     LogoComponent,
-    SearchComponent],
+    SearchComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    LoginModule
   ],
   providers: [],
   exports: [MainLayoutComponent]

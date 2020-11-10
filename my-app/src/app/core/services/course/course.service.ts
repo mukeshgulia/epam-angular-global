@@ -43,7 +43,7 @@ export class CourseService {
     const today: Date = new Date();
     const desc: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus quam neque, sit amet tempus ipsum tempor nec. Maecenas tincidunt, lectus non faucibus dapibus, metus velit ultricies ipsum, eget tincidunt est massa vitae diam. Aliquam pellentesque neque ipsum, vitae dignissim sem lobortis non.';
     this.addCourse(new Course(1, 'course-by-mukesh', today, 120, desc));
-    this.addCourse(new Course(1, 'course-by-mentor', this.dateHelper.subtractDays(today, 1), 119, desc));
+    this.addCourse(new Course(1, 'course-by-mentor', this.dateHelper.subtractDays(today, 1), 119, desc, true));
     this.addCourse(new Course(1, 'course-by-mentor', this.dateHelper.addDays(today, 1), 122, desc));
   }
 }

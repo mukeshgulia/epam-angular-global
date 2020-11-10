@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { Course } from 'src/app/core/services/course/model/course';
+import { SharedModule } from '../shared/shared.module';
 
 import { CourseComponent } from './course.component';
 
@@ -12,7 +13,8 @@ describe('CourseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CourseComponent, TestHostComponent ]
+      declarations: [ CourseComponent ],
+      imports: [SharedModule]
     })
     .compileComponents();
   });
@@ -40,7 +42,10 @@ describe('CourseComponent', () => {
 
   @Component({
     selector: `app-host-component`,
-    template: `<app-course *ngIf="course is not null" [course]=course (courseId)="onDeleteCourse($event)"></app-course>`
+    template: `<app-course
+      *ngIf="course is not null"
+      [course]=course
+      (courseId)="onDeleteCourse($event)"></app-course>`
   })
   class TestHostComponent implements OnInit {
     public course: Course;
@@ -53,7 +58,7 @@ describe('CourseComponent', () => {
       if ( this.course.id === id ) {
         this.course = null;
       }
-  }
+    }
 
   }
 

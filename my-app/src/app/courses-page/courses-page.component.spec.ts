@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AddCourseComponent } from '../add-course/add-course.component';
 import { SearchComponent } from '../search/search.component';
+import { DurationPipe } from '../shared/pipes/duration.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 import { CoursesPageComponent } from './courses-page.component';
 
@@ -11,10 +14,13 @@ describe('CoursesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [RouterTestingModule, SharedModule],
       declarations: [
         CoursesPageComponent,
         SearchComponent,
-        AddCourseComponent ]
+        AddCourseComponent,
+        DurationPipe
+      ]
     })
     .compileComponents();
   });

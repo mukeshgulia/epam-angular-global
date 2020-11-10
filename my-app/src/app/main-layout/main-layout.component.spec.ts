@@ -4,12 +4,15 @@ import { HeaderComponent } from './header/header.component';
 
 import { MainLayoutComponent } from './main-layout.component';
 
+import { RouterTestingModule } from '@angular/router/testing';
+
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
   let fixture: ComponentFixture<MainLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [
          MainLayoutComponent,
          HeaderComponent,
