@@ -1,3 +1,6 @@
 <app-header></app-header>
-<app-content-projection></app-content-projection>
+<app-breadcrumbs *ngIf="checkAuth()"></app-breadcrumbs>
+ <ng-content></ng-content>
+<app-login *ngIf="!checkAuth()"></app-login>
+<app-courses-page *ngIf="checkAuth()"></app-courses-page>
 <app-footer></app-footer>

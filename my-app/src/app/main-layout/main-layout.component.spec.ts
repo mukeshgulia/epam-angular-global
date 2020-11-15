@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContentProjectionComponent } from './content-projection/content-projection.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
 import { MainLayoutComponent } from './main-layout.component';
+
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -11,10 +12,10 @@ describe('MainLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [
          MainLayoutComponent,
          HeaderComponent,
-         ContentProjectionComponent,
          FooterComponent
        ]
     })
@@ -36,13 +37,6 @@ describe('MainLayoutComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('app-footer')).not.toBe(null);
-  });
-
-  it('should contain content-projection component', () => {
-    fixture = TestBed.createComponent(MainLayoutComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('app-content-projection')).not.toBe(null);
   });
 
   it('should contain footer component', () => {

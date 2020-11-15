@@ -5,11 +5,11 @@
       <div class="mr-auto p-2">
           <app-logo></app-logo>
       </div>
-      <div class="p-2">
-        <a href="" class="header__link"><i class="fas fa-user"></i><span class="ml-2">User Login</span></a>
+      <div *ngIf="checkAuth()" class="p-2">
+        <a href="" class="header__link"><i class="fas fa-user"></i><span class="ml-2">{{ getUser() }}</span></a>
       </div>
-      <div class="p-2">
-        <a href="" class="header__link"><i class="fas fa-sign-out-alt"></i><span class="ml-2">Log off</span></a>
+      <div *ngIf="checkAuth()" class="p-2">
+        <a href="" class="header__link" (click)="logout()"><i class="fas fa-sign-out-alt"></i><span class="ml-2">Log off</span></a>
       </div>
     </div>
   </div>
