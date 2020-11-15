@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { CourseNewComponent } from './course-new/course-new.component';
+import { CoursesPageComponent } from './courses-page/courses-page.component';
 import { LoginComponent } from './login/login.component';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 // Task 2: Basic redirect route
 const routes: Routes = [
-  { path: 'courses', component: MainLayoutComponent, canActivate: [AuthGuard] },
+  { path: 'courses', component: CoursesPageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  }
+  { path: 'courses/new', component: CourseNewComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
