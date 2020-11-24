@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CourseService } from '../core/services/course/course.service';
 import { Course } from '../core/services/course/model/course';
 
@@ -14,8 +14,9 @@ export class CourseNewComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private router: Router
+    // private route: ActivatedRoute
+    ) { }
 
   public ngOnInit(): void {
     this.course = new Course(-1, '', undefined, undefined, '', false);
@@ -32,11 +33,12 @@ export class CourseNewComponent implements OnInit {
     this.router.navigate(['courses']);
   }
 
-  private titleExists(): boolean {
-    return this.courseService
-    .getList()
-    .filter(c  => c.title.toLowerCase === this.course.title.toLowerCase).length > 0;
-  }
+  // private titleExists(): boolean {
+  //   return this.courseService
+  //   .getList()
+  //   .filter(c  => c.title.toLowerCase === this.course.title.toLowerCase).length > 0;
+  // }
+
   private getId(): number {
     const curMaxId: number = Math.max(...this.courseService.getList().map(o => o.id));
     return curMaxId + 1;
