@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SearchComponent } from 'src/app/search/search.component';
+import { DurationPipe } from 'src/app/shared/pipes/duration.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { AddCourseComponent } from '../add-course/add-course.component';
-import { SearchComponent } from '../search/search.component';
-import { DurationPipe } from '../shared/pipes/duration.pipe';
-import { SharedModule } from '../shared/shared.module';
 
 import { CoursesPageComponent } from './courses-page.component';
 
@@ -53,10 +53,10 @@ describe('CoursesPageComponent', () => {
     const compiled = fixture.nativeElement;
     fixture.whenStable()
     .then(() => {
-      expect(compiled.querySelector('app-course')).toBeDefined();
+      expect(compiled.querySelector('app-course-item')).toBeDefined();
     })
     .then(() => {
-      const courses = fixture.debugElement.queryAll(By.css('app-course'));
+      const courses = fixture.debugElement.queryAll(By.css('app-course-item'));
       expect(courses.length).toBeGreaterThanOrEqual(3);
     });
     expect(component).toBeTruthy();

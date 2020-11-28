@@ -2,8 +2,15 @@
 <div class="container" style="height: 50px">
   <div class="row d-inline-flex p-2">
     <div class="col">
-      <div class="breadcrumbs" *ngFor="let crumb of breadcrumbs">
-        <a class="breadcrumbs__items breadcrumbs__items-link"><strong>{{crumb}}</strong></a>
+      <div class="breadcrumbs">
+        <ng-container>
+          <a class=" breadcrumbs__items-link"
+          [routerLink]="breadcrumbs[0].route">
+           {{breadcrumbs[0].name}}
+       </a>
+       <span *ngIf="breadcrumbs[1]">/{{breadcrumbs[1].name}}</span>
+        </ng-container>
+
       </div>
     </div>
   </div>

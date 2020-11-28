@@ -14,6 +14,8 @@ import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 import { CourseService } from 'src/app/core/services/course/course.service';
 
 import { Course } from 'src/app/core/services/course/model/course';
+import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
+import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
 
 @Component({
   selector: 'app-courses-page',
@@ -29,18 +31,25 @@ AfterViewInit,
 AfterViewChecked,
 OnDestroy {
 
+  public breadcrumbs: Breadcrumb[] =  [];
+
   public coursesView: Course[] = [];
 
-  constructor(private courseService: CourseService, private filterPipe: FilterPipe) {
+  constructor(
+    private courseService: CourseService,
+    private breadCrumbService: BreadCrumbsService,
+    private filterPipe: FilterPipe) {
     console.log('Called constructor!');
    }
 
   public ngOnInit(): void {
+    this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
     this.coursesView = this.courseService.getList();
   }
 
   public onDeleteCourse(id: number): void {
     if (confirm(`Are you sure to delete course with id: ${id}` )) {
+      console.log(`Deleteting course ${id}`);
       this.courseService.removeItem(id);
       this.coursesView = this.courseService.getList();
       }

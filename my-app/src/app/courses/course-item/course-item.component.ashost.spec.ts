@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Course } from 'src/app/core/services/course/model/course';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
-import { CourseComponent } from './course.component';
+import { CourseItemComponent } from './course-item.component';
 
-describe('CourseComponent', () => {
+describe('CourseItemComponent', () => {
 
   let hostComponent: TestHostComponent;
   let hostFixture: ComponentFixture<TestHostComponent>;
@@ -13,8 +14,8 @@ describe('CourseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CourseComponent ],
-      imports: [SharedModule]
+      declarations: [ CourseItemComponent ],
+      imports: [RouterTestingModule, SharedModule]
     })
     .compileComponents();
   });
@@ -28,11 +29,11 @@ describe('CourseComponent', () => {
   });
 
   it('should receive course as input from host', () => {
-    expect(hostFixture.nativeElement.querySelector('app-course').innerText).toContain(courseContent.title);
-    // hostFixture.debugElement.query(By.css('app-course'))
+    expect(hostFixture.nativeElement.querySelector('app-course-item').innerText).toContain(courseContent.title);
+    // hostFixture.debugElement.query(By.css('app-course-item'))
   });
 
-  it('should remvove app-course component from host when delete is clicked', fakeAsync(() => {
+  it('should remvove app-course-item component from host when delete is clicked', fakeAsync(() => {
     spyOn(hostComponent, 'onDeleteCourse');
     const deleteButton = hostFixture.debugElement.nativeElement.querySelector('#delete-button');
     deleteButton.click();
@@ -42,10 +43,10 @@ describe('CourseComponent', () => {
 
   @Component({
     selector: `app-host-component`,
-    template: `<app-course
+    template: `<app-course-item
       *ngIf="course is not null"
       [course]=course
-      (courseId)="onDeleteCourse($event)"></app-course>`
+      (courseId)="onDeleteCourse($event)"></app-course-item>`
   })
   class TestHostComponent implements OnInit {
     public course: Course;
