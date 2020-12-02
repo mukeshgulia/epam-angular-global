@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { isDefined } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,38 +9,42 @@ import { User } from '../auth/model/user';
 })
 export class AuthService {
 
-  public users: User[] = [];
-  public loggedInUser: User;
+  private baseUrl: string = 'http://localhost:3004';
 
-  constructor(private router: Router) {
-    this.init();
+  public username: string;
+  public token: string;
+
+  constructor(private router: Router,  private http: HttpClient) {
   }
 
-  public login(email: string, token: string): void {
-    const userPresent = this.users.findIndex(u => u.email === email && u.token === token);
-    if (userPresent !== -1) {
-      this.loggedInUser = this.users.find(u => u.email === email && u.token === token);
-      console.log('Logged in successfully');
+  public login(login: string, password: string): void {
+
+    this.http.post(`${this.baseUrl}/auth/login`, {login, password})
+    .subscribe((res: {token: string}) => {
+      console.log(`token: ${res.token}`);
+      this.token  = res.token;
       this.router.navigateByUrl('/courses');
-    }
+    });
   }
 
   public logout(): void {
-    console.log(`Logging out ${this.loggedInUser.email}`);
-    this.loggedInUser = undefined;
+    console.log(`Logging out ${this.username}`);
+    this.username = null;
+    this.token = null;
   }
 
   public isAuthenticted(): boolean {
-    return isDefined(this.loggedInUser);
+    return isDefined(this.token);
   }
 
   public getUserInfo(): string {
-    return `${this.loggedInUser.firstName} ${this.loggedInUser.lastName}`;
-  }
-
-  private init(): void {
-    this.users.push(new User(1, 'Mukesh', 'Gulia', 'mukesh_gulia@epam.com', 'password'));
-    this.users.push(new User(1, 'Kiryl', 'Panov', 'kiryl_panov@epam.com', 'password'));
+    if (this.token) {
+      this.http.post<User>(`${this.baseUrl}/auth/userinfo`, {token: this.token})
+      .subscribe((user: User) => {
+        this.username = `${user.name.first} ${user.name.first}`;
+      });
+    }
+    return this.username;
   }
 
 }

@@ -1,7 +1,10 @@
 export interface UserInterface {
   id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
   token: string;
+  name: {
+      first: string;
+      last: string;
+  };
+  login: string;
+  password: string;
 }

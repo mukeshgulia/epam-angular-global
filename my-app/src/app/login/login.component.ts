@@ -9,11 +9,11 @@ import { AuthService } from '../core/services/auth/auth.service';
 export class LoginComponent {
 
   public email: string;
-  public token: string;
+  public password: string;
   constructor(private authService: AuthService) { }
 
   public authenticate(): void {
-    this.authService.login(this.email, this.token);
+    this.authService.login(this.email, this.password);
   }
 
 }

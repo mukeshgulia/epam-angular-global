@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LoginModule } from '../login/login.module';
 import { CoursesModule } from '../courses/courses.module';
 
+import { HttpClientModule} from '@angular/common/http';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -23,7 +24,8 @@ import { CoursesModule } from '../courses/courses.module';
     FormsModule,
     SharedModule,
     LoginModule,
-    CoursesModule
+    CoursesModule,
+    HttpClientModule
   ],
   providers: [],
   exports: [MainLayoutComponent]
