@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from 'src/app/core/services/course/model/course';
 import { DateHelper } from 'src/app/shared/utils/date-helper';
+import { Author } from './model/author';
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +41,11 @@ export class CourseService {
   }
 
   private init(): void {
+    const author = new Author(1, 'Mukesh', 'Gulia');
     const today: Date = new Date();
     const desc: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus quam neque, sit amet tempus ipsum tempor nec. Maecenas tincidunt, lectus non faucibus dapibus, metus velit ultricies ipsum, eget tincidunt est massa vitae diam. Aliquam pellentesque neque ipsum, vitae dignissim sem lobortis non.';
-    this.addCourse(new Course(1, 'course-by-mukesh', today, 120, desc));
-    this.addCourse(new Course(2, 'course-by-mentor', this.dateHelper.subtractDays(today, 1), 119, desc, true));
-    this.addCourse(new Course(3, 'course-by-mentors', this.dateHelper.addDays(today, 1), 122, desc));
+    this.addCourse(new Course(1, 'course-by-mukesh', today, 120, desc, false, [author]));
+    this.addCourse(new Course(2, 'course-by-mentor', this.dateHelper.subtractDays(today, 1), 119, desc, true, [author]));
+    this.addCourse(new Course(3, 'course-by-mentors', this.dateHelper.addDays(today, 1), 122, desc,false, [author]));
   }
 }

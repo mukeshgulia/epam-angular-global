@@ -35,7 +35,7 @@ export class CourseEditorComponent implements OnInit {
       this.isNew = false;
     } else {
       this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
-      this.course = new Course(-1, '', undefined, undefined, '', false);
+      this.course = new Course(-1, '', undefined, undefined, '', false, []);
       this.isNew = true;
     }
   }

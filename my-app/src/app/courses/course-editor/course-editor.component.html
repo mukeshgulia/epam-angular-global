@@ -57,6 +57,18 @@
           <label for="toprated">Top rated</label>
       </div>
 
+      <div class="form-group">
+        <label for="authors">Authors:</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Provide authors"
+          id="authors" name="authors"
+          required
+          [(ngModel)]="course.authors[0].firstName">
+      </div>
+
+
       <div class="row">
         <div class="col">
           <button class="btn btn-danger"

@@ -20,7 +20,6 @@ export class LoginComponent {
       this.authService.token  = res.token;
       this.router.navigateByUrl('/courses');
     });
-;
   }
 
 }
