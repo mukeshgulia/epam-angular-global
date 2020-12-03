@@ -46,13 +46,13 @@ export class CourseEditorComponent implements OnInit {
 
   public save(): void {
     this.course.id = this.getId();
-    this.course.creationDate = new Date(this.course.creationDate);
+    this.course.date = new Date(this.course.date);
     this.courseService.addCourse(this.course);
     this.routeToCourses();
   }
 
   public update(): void {
-    this.course.creationDate = new Date(this.course.creationDate);
+    this.course.date = new Date(this.course.date);
     this.courseService.updateCourse(this.course);
     this.routeToCourses();
   }

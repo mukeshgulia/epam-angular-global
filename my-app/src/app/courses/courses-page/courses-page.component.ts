@@ -22,7 +22,7 @@ import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb'
   templateUrl: './courses-page.component.html',
   styleUrls: ['./courses-page.component.scss']
 })
-export class CoursesPageComponent implements
+export class CoursesPageComponent  implements
 OnChanges,
 OnInit,
 AfterContentInit,
@@ -30,6 +30,8 @@ AfterContentChecked,
 AfterViewInit,
 AfterViewChecked,
 OnDestroy {
+
+  private courseCount: number = 3;
 
   public breadcrumbs: Breadcrumb[] =  [];
 
@@ -44,7 +46,7 @@ OnDestroy {
 
   public ngOnInit(): void {
     this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
-    this.coursesView = this.courseService.getList();
+;   this.getCourses();
   }
 
   public onDeleteCourse(id: number): void {
@@ -53,6 +55,17 @@ OnDestroy {
       this.courseService.removeItem(id);
       this.coursesView = this.courseService.getList();
       }
+  }
+
+  public filter(text: string): void{
+    console.log('filtering...');
+    this.coursesView = this.filterPipe.transform(this.courseService.getList(), text);
+    console.log(this.coursesView);
+  }
+
+  public load(): void {
+    this.courseCount += 3;
+    this.getCourses();
   }
 
   public ngOnChanges(): void {
@@ -79,10 +92,11 @@ OnDestroy {
     console.log('Called ngOnDestroy!');
   }
 
-  public filter(text: string): void{
-    console.log('filtering...');
-    this.coursesView = this.filterPipe.transform(this.courseService.getList(), text);
-    console.log(this.coursesView);
-  }
+  private getCourses(): void {
+    this.courseService.getCourses(this.courseCount)
+    .subscribe(courses => {
+      this.coursesView = courses;
+  });
+}
 
 }

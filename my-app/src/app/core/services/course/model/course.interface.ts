@@ -2,9 +2,9 @@ import { Author } from './author';
 
 export interface CourseInterface {
   id: number;
-  title: string;
-  creationDate: Date;
-  duration: number;
+  name: string;
+  date: Date;
+  length: number;
   description: string;
   topRated: boolean;
   authors: Author[];

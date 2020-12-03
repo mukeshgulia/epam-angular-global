@@ -21,7 +21,7 @@ export class BreadCrumbsService {
 
     const breadCrumbs: Breadcrumb[] = [];
     breadCrumbs.push(new Breadcrumb('Courses', '/courses'));
-    const courseName = this.courseService.getItem(id).title;
+    const courseName = this.courseService.getItem(id).name;
     breadCrumbs.push(new Breadcrumb(courseName));
     return breadCrumbs;
 

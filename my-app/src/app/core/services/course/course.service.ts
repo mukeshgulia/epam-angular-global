@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Course } from 'src/app/core/services/course/model/course';
 import { DateHelper } from 'src/app/shared/utils/date-helper';
 import { Author } from './model/author';
@@ -10,7 +12,7 @@ export class CourseService {
 
   public courses: Course[] = [];
 
-  constructor(private dateHelper: DateHelper) {
+  constructor(private dateHelper: DateHelper, private http: HttpClient) {
     this.init();
   }
 
@@ -20,6 +22,10 @@ export class CourseService {
 
   public getList(): Course[] {
     return this.courses.slice();
+  }
+
+  public getCourses(count: number): Observable<Course[]> {
+    return this.http.get<Course[]>(`http://localhost:3004?start=0&count=${count}`);
   }
 
   public getItem(id: number): Course {
