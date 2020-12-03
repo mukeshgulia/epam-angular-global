@@ -2,14 +2,8 @@
   background-color: var(--white);
   height: 50px;
 
-  &__items {
-      display: flex;
-      align-items: center;
-      color: black;
-
-      &-link {
-        text-decoration: none;
-        cursor: pointer;
-      }
+  &__items-link {
+    text-decoration: none;
+    cursor: pointer;
   }
 }

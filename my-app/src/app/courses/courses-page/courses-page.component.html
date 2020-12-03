@@ -1,3 +1,4 @@
+<app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
 <!-- <app-main-layout> -->
   <div class="container bg-light">
     <div class="row row-margin-bottom_30">
@@ -15,11 +16,11 @@
         class="coursesPage"
         *ngIf="coursesView?.length; else elseBlock">
 
-        <app-course
+        <app-course-item
           *ngFor="let course of coursesView | orderBy"
           [course] = "course"
           (courseId)="onDeleteCourse($event)">
-        </app-course>
+        </app-course-item>
 
         <div class="row justify-content-center bg-light">
           <!-- Task 2  Load More-->

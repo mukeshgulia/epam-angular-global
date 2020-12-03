@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/core/services/course/model/course';
 
 @Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
-  styleUrls: ['./course.component.scss'],
+  selector: 'app-course-item',
+  templateUrl: './course-item.component.html',
+  styleUrls: ['./course-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class CourseComponent {
+export class CourseItemComponent {
 
   // Task 2
   @Output() public courseId = new EventEmitter<number>();
@@ -17,14 +18,14 @@ export class CourseComponent {
   @Input() public course: Course;
 
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   public edit(): void {
-    console.log('pending implementation');
+    console.log(`Editing course id: ${this.course.id}`);
+    this.router.navigate(['courses', this.course.id]);
   }
 
   public delete(): void {
-    console.log('Deleting course');
     this.courseId.emit(this.course.id);
   }
 

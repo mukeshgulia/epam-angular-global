@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Breadcrumb } from '../core/services/bread-crumb/model/bread-crumb';
 
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BreadcrumbsComponent implements OnInit {
+export class BreadcrumbsComponent {
 
-  public breadcrumbs: string[];
+  @Input() public breadcrumbs: Breadcrumb[];
 
   constructor() { }
-
-  // Task 2: static breadcrumbs
-  public ngOnInit(): void {
-    this.breadcrumbs = ['Courses'];
-  }
 
 }
