@@ -8,7 +8,7 @@
       placeholder="Type a course name"
       aria-label="Search"
       [(ngModel)]="searchText"
-      (keyup)="onTextSearch$.next(searchText)"
+      (input)="onTextSearch$.next(searchText)"
       >
     </div>
     <!-- <div class="col-md-auto">

@@ -15,7 +15,9 @@ import { CourseService } from 'src/app/core/services/course/course.service';
 import { Course } from 'src/app/core/services/course/model/course';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
-import {map} from 'rxjs/operators';
+import {debounceTime, finalize, map, timeout} from 'rxjs/operators';
+import { LoadingService } from 'src/app/core/services/loading/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-courses-page',
@@ -38,6 +40,7 @@ OnDestroy {
   public coursesView: Course[] = [];
 
   constructor(
+    private loadingServce: LoadingService,
     private courseService: CourseService,
     private breadCrumbService: BreadCrumbsService) {
     console.log('Called constructor!');
@@ -100,9 +103,11 @@ OnDestroy {
     console.log('Called ngOnDestroy!');
   }
 
+
   private getCourses(): void {
     this.courseService.getCourses(this.courseCount)
-    .then( o => o.subscribe((courses: Course[]) => this.coursesView = courses));
+    .subscribe(courses => {
+      this.coursesView = courses;
+    });
   }
-
 }

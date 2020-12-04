@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit{
     this.onTextSearch$
         .pipe(
             debounceTime(1000),
-            filter(text => !!text && text.length >= 3))
+            filter(text => text && text.length >= 3))
         .subscribe(
             text => {
               this.printSearch(text);

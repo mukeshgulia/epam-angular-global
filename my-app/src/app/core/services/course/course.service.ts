@@ -17,46 +17,40 @@ export class CourseService {
   constructor(private http: HttpClient, private loadingServce: LoadingService) {}
 
   public search(text: string): Observable<Course[]> {
+//    this.loadingServce.loading$.next(true);
     return this.http.get<Course[]>(`${this.BASE_URL}?textFragment=${text}`);
+//    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
-  // public getCourses(count: number): Observable<Course[]> {
-  //   this.loadingServce.loading$.next(true);
-  //   return this.http.get<Course[]>(`${this.BASE_URL}?start=0&count=${count}`)
-  //   .pipe(
-  //     debounceTime(2000),
-  //     finalize(() => this.loadingServce.loading$.next(false))
-  //   );
-  // }
-
-
-  public async getCourses(count: number) {
+  public getCourses(count: number): Observable<Course[]> {
     this.loadingServce.loading$.next(true);
-
-    this.loadingServce.delay(2000).then(() => {
-      return this.http.get<Course[]>(`${this.BASE_URL}?start=0&count=${count}`)
-      .pipe(
-        debounceTime(2000),
-        finalize(() => this.loadingServce.loading$.next(false))
-        );
-      });
+    return this.http.get<Course[]>(`${this.BASE_URL}?start=0&count=${count}`)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
   public getCourseById(id: number): Observable<Course> {
-    return this.http.get<Course>(`${this.BASE_URL}?id=${id}`);
+    this.loadingServce.loading$.next(true);
+    return this.http.get<Course>(`${this.BASE_URL}?id=${id}`)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
   public deleteCourse(id: number): Observable<{}> {
-    return this.http.delete<{}>(`${this.BASE_URL}/${id}`);
+    this.loadingServce.loading$.next(true);
+    return this.http.delete<{}>(`${this.BASE_URL}/${id}`)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
+
   }
 
   public createCourse(course: Course): Observable<Course[]> {
-    return this.http.post<Course[]>(`${this.BASE_URL}`, course);
+    this.loadingServce.loading$.next(true);
+    return this.http.post<Course[]>(`${this.BASE_URL}`, course)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
+
   }
 
   public updateCourse(course: Course): Observable<Course[]> {
-      return this.http.patch<Course[]>(`${this.BASE_URL}/${course.id}`, course);
+    this.loadingServce.loading$.next(true);
+    return this.http.patch<Course[]>(`${this.BASE_URL}/${course.id}`, course)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
-
-
 }
