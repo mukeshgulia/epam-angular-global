@@ -13,12 +13,14 @@ import { CoursesModule } from '../courses/courses.module';
 
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthHeaderInterceptor } from '../core/interceptors/auth.header.interceptor';
+import { LoadingComponent } from '../loading/loading.component';
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     MainLayoutComponent,
-    LogoComponent
+    LogoComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

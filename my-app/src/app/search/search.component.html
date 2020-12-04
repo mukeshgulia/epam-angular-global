@@ -8,13 +8,14 @@
       placeholder="Type a course name"
       aria-label="Search"
       [(ngModel)]="searchText"
+      (keyup)="onTextSearch$.next(searchText)"
       >
     </div>
-    <div class="col-md-auto">
+    <!-- <div class="col-md-auto">
       <button class="btn btn-success"
       (click)="onSearch()"
       (click)="printSearch()"
       >Search</button>
-    </div>
+    </div> -->
   </div>
 </div>

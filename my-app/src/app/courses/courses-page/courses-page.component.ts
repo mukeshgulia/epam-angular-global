@@ -102,9 +102,7 @@ OnDestroy {
 
   private getCourses(): void {
     this.courseService.getCourses(this.courseCount)
-    .subscribe(courses => {
-      this.coursesView = courses;
-  });
-}
+    .then( o => o.subscribe((courses: Course[]) => this.coursesView = courses));
+  }
 
 }

@@ -10,12 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  public user: Observable<string>;
+  public user$: Observable<string>;
 
   constructor(private authSerivce: AuthService) { }
 
   public ngOnInit(): void {
-    this.user = this.authSerivce.getUserInfo()
+    this.user$ = this.authSerivce.getUserInfo()
     .pipe(
         map(user => user ? user.name.first + ' ' + user.name.last : '')
     );
