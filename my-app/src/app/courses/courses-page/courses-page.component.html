@@ -4,7 +4,7 @@
     <div class="row row-margin-bottom_30">
         <div class="col justify-content-around d-flex flex-column">
           <!-- Task 2: Search -->
-          <app-search (search)="filter($event)"></app-search>
+          <app-search (search)="search($event)"></app-search>
         </div>
         <div class="col-md-auto">
           <!-- Task 2: Add Course  -->
@@ -24,7 +24,7 @@
 
         <div class="row justify-content-center bg-light">
           <!-- Task 2  Load More-->
-          <a href="#">Load More</a>
+          <a [routerLink]="['/courses']" (click)="load()">Load More</a>
         </div>
       </div>
       <ng-template #elseBlock>

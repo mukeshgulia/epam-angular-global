@@ -1,20 +1,25 @@
+import { Author } from './author';
 import { CourseInterface } from './course.interface';
 
 export class Course implements CourseInterface {
 
   public id: number;
-  public title: string;
-  public creationDate: Date;
-  public duration: number;
+  public name: string;
+  public date: string;
+  public length: number;
   public description: string;
-  public topRated: boolean;
+  public isTopRated: boolean;
+  public authors: Author[];
 
-  constructor(id: number, title: string, creationDate: Date, duration: number, description: string, topRated: boolean = false) {
-    this.id = id;
-    this.title = title;
-    this.creationDate = creationDate;
-    this.duration = duration;
-    this.description = description;
-    this.topRated = topRated;
+  constructor(
+    id: number, name: string, date: string, length: number,
+    description: string, isTopRated: boolean = false, authors: Author[]) {
+      this.id = id;
+      this.name = name;
+      this.date = date;
+      this.length = length;
+      this.description = description;
+      this.isTopRated = isTopRated;
+      this.authors = authors;
   }
 }

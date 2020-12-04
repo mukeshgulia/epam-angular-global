@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../core/services/auth/auth.service';
 
 @Component({
@@ -9,11 +10,16 @@ import { AuthService } from '../core/services/auth/auth.service';
 export class LoginComponent {
 
   public email: string;
-  public token: string;
-  constructor(private authService: AuthService) { }
+  public password: string;
+  constructor(private authService: AuthService, private router: Router) { }
 
   public authenticate(): void {
-    this.authService.login(this.email, this.token);
+    this.authService.login(this.email, this.password)
+    .subscribe((res: {token: string}) => {
+      console.log(`token: ${res.token}`);
+      this.authService.token  = res.token;
+      this.router.navigateByUrl('/courses');
+    });
   }
 
 }

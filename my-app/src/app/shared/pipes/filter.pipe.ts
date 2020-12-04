@@ -8,6 +8,6 @@ export class FilterPipe implements PipeTransform {
 
   public transform(courses: Course[], searchString: string): Course[] {
     const regex = new RegExp(searchString, 'g');
-    return courses.slice().filter(course => regex.test(course.title));
+    return courses.slice().filter(course => regex.test(course.name));
 }
 }

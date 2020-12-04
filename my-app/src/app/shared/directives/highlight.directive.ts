@@ -16,7 +16,7 @@ export class HighlightDirective implements AfterViewChecked{
 
   public ngAfterViewChecked(): void {
 
-    const courseDate: Date = this.course.creationDate;
+    const courseDate: Date = new Date(this.course.date);
     courseDate.setHours(0, 0, 0, 0);
     const today: Date = new Date();
     today.setHours(0, 0, 0, 0);
