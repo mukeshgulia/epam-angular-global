@@ -2,12 +2,12 @@ import { AuthorInterface } from './author.interface';
 
 export class Author implements AuthorInterface {
     public id: number;
-    public firstName: string;
+    public name: string;
     public lastName: string;
 
-    constructor(id: number, firstName: string, lastName: string) {
+    constructor(id: number, name: string, lastName: string) {
       this.id = id;
-      this.firstName = firstName;
+      this.name = name;
       this.lastName = lastName;
     }
 }

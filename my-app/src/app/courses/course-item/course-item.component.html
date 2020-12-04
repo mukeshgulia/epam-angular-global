@@ -1,13 +1,13 @@
 <div class="container"
   [appHighlight] = "course"
-  [ngClass]="{'course__topRated': course.topRated}">
+  [ngClass]="{'course__topRated': course.isTopRated}">
 
   <div class="row">
     <!-- Task 2  {{object.property}}-->
     <div class="col-lg">
     <!-- Task 2  Details-->
     <strong>Video Course {{course.id}}. {{ course.name | uppercase }}</strong>
-    <span *ngIf="course.topRated"><i class="fas fa-star fa-fw"></i></span>
+    <span *ngIf="course.isTopRated"><i class="fas fa-star fa-fw"></i></span>
     </div>
     <div class="col-lg">
       <span><i class="far fa-clock"></i> {{ course.length | duration }}</span>

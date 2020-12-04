@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { User } from 'src/app/core/services/auth/model/user';
+import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,24 +10,24 @@ import { User } from 'src/app/core/services/auth/model/user';
 })
 export class HeaderComponent implements OnInit {
 
+  public user: Observable<string>;
+
   constructor(private authSerivce: AuthService) { }
 
   public ngOnInit(): void {
+    this.user = this.authSerivce.getUserInfo()
+    .pipe(
+        map(user => user ? user.name.first + ' ' + user.name.last : '')
+    );
+
   }
 
   public checkAuth(): boolean {
     return this.authSerivce.isAuthenticted();
   }
 
-  public getUser(): string {
-    this.authSerivce.getUserInfo()
-    .subscribe((user: User) => {
-      this.authSerivce.username = `${user.name.first} ${user.name.first}`;
-    });
-    return this.authSerivce.username;
-  }
-
   public logout(): void {
     this.authSerivce.logout();
   }
+
 }

@@ -11,7 +11,8 @@ import { SharedModule } from '../shared/shared.module';
 import { LoginModule } from '../login/login.module';
 import { CoursesModule } from '../courses/courses.module';
 
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { AuthHeaderInterceptor } from '../core/interceptors/auth.header.interceptor';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -27,7 +28,13 @@ import { HttpClientModule} from '@angular/common/http';
     CoursesModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHeaderInterceptor,
+      multi: true,
+    }
+  ],
   exports: [MainLayoutComponent]
 })
 export class MainLayoutModule { }

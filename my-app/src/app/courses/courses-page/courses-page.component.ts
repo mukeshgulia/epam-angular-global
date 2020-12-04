@@ -10,12 +10,12 @@ import {
   AfterViewChecked,
   OnDestroy
 } from '@angular/core';
-import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 import { CourseService } from 'src/app/core/services/course/course.service';
 
 import { Course } from 'src/app/core/services/course/model/course';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses-page',
@@ -39,28 +39,36 @@ OnDestroy {
 
   constructor(
     private courseService: CourseService,
-    private breadCrumbService: BreadCrumbsService,
-    private filterPipe: FilterPipe) {
+    private breadCrumbService: BreadCrumbsService) {
     console.log('Called constructor!');
    }
 
   public ngOnInit(): void {
     this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
-;   this.getCourses();
+    this.getCourses();
   }
 
   public onDeleteCourse(id: number): void {
     if (confirm(`Are you sure to delete course with id: ${id}` )) {
-      console.log(`Deleteting course ${id}`);
-      this.courseService.removeItem(id);
-      this.coursesView = this.courseService.getList();
-      }
+      this.courseService.deleteCourse(id)
+      .subscribe({
+        next: data => {
+            console.log(data);
+            this.getCourses();
+        },
+        error: error => {
+            console.error('There was an error while deleting course!', error);
+        }
+    });
+    }
   }
 
-  public filter(text: string): void{
-    console.log('filtering...');
-    this.coursesView = this.filterPipe.transform(this.courseService.getList(), text);
-    console.log(this.coursesView);
+  public search(text: string): void{
+    this.courseService.search(text)
+    .pipe( map((courses) => courses.slice(0, this.courseCount)) )
+    .subscribe(courses => {
+        this.coursesView = courses;
+    });
   }
 
   public load(): void {

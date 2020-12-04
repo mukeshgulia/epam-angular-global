@@ -14,7 +14,7 @@ export class SearchComponent {
   constructor() { }
 
   public printSearch(): void {
-    console.log(this.searchText);
+    console.log(`Searching ${this.searchText}`);
   }
 
   public onSearch(): void {
