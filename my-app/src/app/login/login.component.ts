@@ -17,7 +17,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.password)
     .subscribe((res: {token: string}) => {
       console.log(`token: ${res.token}`);
-      this.authService.token  = res.token;
+      this.authService.token$.next(res.token);
       this.router.navigateByUrl('/courses');
     });
   }

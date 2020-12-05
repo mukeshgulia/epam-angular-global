@@ -19,11 +19,15 @@ export class HeaderComponent implements OnInit {
     .pipe(
         map(user => user ? user.name.first + ' ' + user.name.last : '')
     );
-
   }
 
   public checkAuth(): boolean {
-    return this.authSerivce.isAuthenticted();
+    let isAuthenticted: boolean = false;
+
+    this.authSerivce.isAuthenticted()
+    .subscribe( isAuth => isAuthenticted = isAuth);
+
+    return isAuthenticted;
   }
 
   public logout(): void {

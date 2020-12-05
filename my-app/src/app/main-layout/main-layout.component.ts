@@ -13,9 +13,4 @@ export class MainLayoutComponent implements OnInit {
 
   public ngOnInit(): void {
   }
-
-  public checkAuth(): boolean {
-    return this.authservice.isAuthenticted();
-  }
-
 }
