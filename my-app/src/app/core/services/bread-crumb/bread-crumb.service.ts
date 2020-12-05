@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CourseService } from '../course/course.service';
+import { Course } from '../course/model/course';
 import { Breadcrumb } from './model/bread-crumb';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Breadcrumb } from './model/bread-crumb';
 })
 export class BreadCrumbsService {
 
-  constructor(private courseService: CourseService) { }
+  constructor() {}
 
   public getCoursePageCrumbs(): Breadcrumb[] {
 
@@ -17,13 +17,11 @@ export class BreadCrumbsService {
 
   }
 
-  public getCourseEditorCrumbs(id: number): Breadcrumb[] {
+  public getCourseEditorCrumbs(course: Course): Breadcrumb[] {
 
     const breadCrumbs: Breadcrumb[] = [];
     breadCrumbs.push(new Breadcrumb('Courses', '/courses'));
-    const courseName = this.courseService.getItem(id).title;
-    breadCrumbs.push(new Breadcrumb(courseName));
+    breadCrumbs.push(new Breadcrumb(course.name));
     return breadCrumbs;
-
   }
 }

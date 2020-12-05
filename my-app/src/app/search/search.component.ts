@@ -1,23 +1,40 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit{
 
   @Output() public search = new EventEmitter<string>();
 
   public searchText: string;
 
+  public onTextSearch$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor() { }
 
-  public printSearch(): void {
-    console.log(this.searchText);
+  public ngOnInit(): void {
+    this.onTextSearch$
+        .pipe(
+            debounceTime(1000),
+            filter(text => text && text.length >= 3))
+        .subscribe(
+            text => {
+              this.printSearch(text);
+              this.search.emit(text);
+            }
+        );
   }
 
-  public onSearch(): void {
-    this.search.emit(this.searchText);
+  private printSearch(text: string): void {
+    console.log(`Searching ${text}`);
   }
+
+  // public onSearch(): void {
+  //   this.search.emit(this.searchText);
+  // }
 }

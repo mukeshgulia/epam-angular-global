@@ -1,49 +1,56 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { debounceTime, finalize } from 'rxjs/operators';
 import { Course } from 'src/app/core/services/course/model/course';
-import { DateHelper } from 'src/app/shared/utils/date-helper';
+import { LoadingService } from '../loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
+  private BASE_URL: string = 'http://localhost:3004/courses';
+
   public courses: Course[] = [];
 
-  constructor(private dateHelper: DateHelper) {
-    this.init();
+  constructor(private http: HttpClient, private loadingServce: LoadingService) {}
+
+  public search(text: string): Observable<Course[]> {
+//    this.loadingServce.loading$.next(true);
+    return this.http.get<Course[]>(`${this.BASE_URL}?textFragment=${text}`);
+//    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
-  public addCourse(course: Course): void {
-    this.courses.push(course);
+  public getCourses(count: number): Observable<Course[]> {
+    this.loadingServce.loading$.next(true);
+    return this.http.get<Course[]>(`${this.BASE_URL}?start=0&count=${count}`)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
-  public getList(): Course[] {
-    return this.courses.slice();
+  public getCourseById(id: number): Observable<Course> {
+    this.loadingServce.loading$.next(true);
+    return this.http.get<Course>(`${this.BASE_URL}?id=${id}`)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
-  public getItem(id: number): Course {
-    return this.courses.slice().find(course => course.id === id);
+  public deleteCourse(id: number): Observable<{}> {
+    this.loadingServce.loading$.next(true);
+    return this.http.delete<{}>(`${this.BASE_URL}/${id}`)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
+
   }
 
-  public updateCourse(course: Course): void {
-    const index = this.courses.findIndex((crs) => crs.id === course.id);
+  public createCourse(course: Course): Observable<Course[]> {
+    this.loadingServce.loading$.next(true);
+    return this.http.post<Course[]>(`${this.BASE_URL}`, course)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
 
-    if (index === -1) {
-        console.log('Item not found. Nothing to update');
-    } else {
-        this.courses[index] = course;
-    }
   }
 
-  public removeItem(id: number): void {
-    this.courses.splice(id - 1, 1);
-  }
-
-  private init(): void {
-    const today: Date = new Date();
-    const desc: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus quam neque, sit amet tempus ipsum tempor nec. Maecenas tincidunt, lectus non faucibus dapibus, metus velit ultricies ipsum, eget tincidunt est massa vitae diam. Aliquam pellentesque neque ipsum, vitae dignissim sem lobortis non.';
-    this.addCourse(new Course(1, 'course-by-mukesh', today, 120, desc));
-    this.addCourse(new Course(2, 'course-by-mentor', this.dateHelper.subtractDays(today, 1), 119, desc, true));
-    this.addCourse(new Course(3, 'course-by-mentors', this.dateHelper.addDays(today, 1), 122, desc));
+  public updateCourse(course: Course): Observable<Course[]> {
+    this.loadingServce.loading$.next(true);
+    return this.http.patch<Course[]>(`${this.BASE_URL}/${course.id}`, course)
+    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 }

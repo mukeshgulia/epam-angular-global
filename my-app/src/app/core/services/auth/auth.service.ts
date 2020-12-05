@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { isDefined } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { User } from '../auth/model/user';
 
 @Injectable({
@@ -8,38 +11,33 @@ import { User } from '../auth/model/user';
 })
 export class AuthService {
 
-  public users: User[] = [];
-  public loggedInUser: User;
+  private baseUrl: string = 'http://localhost:3004';
 
-  constructor(private router: Router) {
-    this.init();
-  }
+  public username: string;
+  public token$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
 
-  public login(email: string, token: string): void {
-    const userPresent = this.users.findIndex(u => u.email === email && u.token === token);
-    if (userPresent !== -1) {
-      this.loggedInUser = this.users.find(u => u.email === email && u.token === token);
-      console.log('Logged in successfully');
-      this.router.navigateByUrl('/courses');
-    }
+  constructor(private http: HttpClient) {}
+
+  public login(login: string, password: string): Observable<{token: string}> {
+    return this.http.post<{token: string}>(`${this.baseUrl}/auth/login`, {login, password})
+    .pipe(tap((response) => this.token$.next(response.token)));
   }
 
   public logout(): void {
-    console.log(`Logging out ${this.loggedInUser.email}`);
-    this.loggedInUser = undefined;
+    console.log(`Logging out ${this.username}`);
+    this.username = null;
+    this.token$.next(undefined);
   }
 
-  public isAuthenticted(): boolean {
-    return isDefined(this.loggedInUser);
-  }
+  public isAuthenticted(): Observable<boolean> {
+     return this.token$.asObservable().pipe(map((token) => !!token));
+    }
 
-  public getUserInfo(): string {
-    return `${this.loggedInUser.firstName} ${this.loggedInUser.lastName}`;
-  }
+  public getUserInfo(): Observable<User> {
 
-  private init(): void {
-    this.users.push(new User(1, 'Mukesh', 'Gulia', 'mukesh_gulia@epam.com', 'password'));
-    this.users.push(new User(1, 'Kiryl', 'Panov', 'kiryl_panov@epam.com', 'password'));
+    return this.token$.asObservable().pipe(
+      filter((token) => !!token),
+      switchMap((token) => this.http.post<User>(`${this.baseUrl}/auth/userinfo`, {token})));
   }
 
 }

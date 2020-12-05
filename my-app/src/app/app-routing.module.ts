@@ -8,8 +8,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 // Task 2: Basic redirect route
 const routes: Routes = [
-  { path: 'courses', component: CoursesPageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'courses', component: CoursesPageComponent, canActivate: [AuthGuard] },
   { path: 'courses/new', component: CourseEditorComponent, canActivate: [AuthGuard] },
   { path: 'courses/:id', component: CourseEditorComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full'},

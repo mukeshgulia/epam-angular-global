@@ -6,7 +6,7 @@
           <app-logo></app-logo>
       </div>
       <div *ngIf="checkAuth()" class="p-2">
-        <a href="" class="header__link"><i class="fas fa-user"></i><span class="ml-2">{{ getUser() }}</span></a>
+        <a href="" class="header__link"><i class="fas fa-user"></i><span class="ml-2">{{ user$ | async }}</span></a>
       </div>
       <div *ngIf="checkAuth()" class="p-2">
         <a href="" class="header__link" (click)="logout()"><i class="fas fa-sign-out-alt"></i><span class="ml-2">Log off</span></a>
