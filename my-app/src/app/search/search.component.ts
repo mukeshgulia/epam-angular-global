@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit{
 
   public searchText: string;
 
-  public onTextSearch$: Subject<string>;
+  public onTextSearch$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() { }
 
