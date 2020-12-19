@@ -1,6 +1,11 @@
   <div class="container" style="margin:auto;width: 600px;">
     <h1>Login</h1>
-    <!-- <form> -->
+    <div *ngIf="errorMessage">
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+     </div>
+     <!-- <form> -->
       <div class="form-group">
         <label for="email">Email address:</label>
         <input

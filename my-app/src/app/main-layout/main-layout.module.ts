@@ -14,6 +14,7 @@ import { CoursesModule } from '../courses/courses.module';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthHeaderInterceptor } from '../core/interceptors/auth.header.interceptor';
 import { LoadingComponent } from '../loading/loading.component';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -28,8 +29,7 @@ import { LoadingComponent } from '../loading/loading.component';
     SharedModule,
     LoginModule,
     CoursesModule,
-    HttpClientModule
-  ],
+    HttpClientModule  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

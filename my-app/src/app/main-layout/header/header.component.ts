@@ -22,12 +22,14 @@ export class HeaderComponent implements OnInit {
   }
 
   public checkAuth(): boolean {
-    let isAuthenticted: boolean = false;
 
-    this.authSerivce.isAuthenticted()
-    .subscribe( isAuth => isAuthenticted = isAuth);
+    return this.authSerivce.isAuthenticted();
+    // let isAuthenticted: boolean = false;
 
-    return isAuthenticted;
+    // this.authSerivce.isAuthenticted()
+    // .subscribe( isAuth => isAuthenticted = isAuth);
+
+    // return isAuthenticted;
   }
 
   public logout(): void {
