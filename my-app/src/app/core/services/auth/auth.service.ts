@@ -1,11 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
-import { isDefined } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { AuthState, selectAuthState } from '../../store/auth/auth.state';
+import { map, tap } from 'rxjs/operators';
 import { User } from '../auth/model/user';
 
 @Injectable({
@@ -32,8 +28,8 @@ export class AuthService {
   }
 
   public isAuthenticted(): boolean {
-    console.log(`service isAuth: ${this.getAuthToken() ? true: false}`);
-    return this.getAuthToken() ? true: false
+    console.log(`service isAuth: ${this.getAuthToken() ? true : false}`);
+    return this.getAuthToken() ? true : false;
   }
 
   public observeAuth(): Observable<boolean> {
@@ -47,13 +43,13 @@ export class AuthService {
 
   public getUserInfo(): Observable<User> {
     if (this.isAuthenticted()) {
-      console.log(`service getUserInfo: ${this.isAuthenticted()}`)
+      console.log(`service getUserInfo: ${this.isAuthenticted()}`);
       return this.http.post<User>(`${this.baseUrl}/auth/userinfo`, this.getAuthToken());
     } else {
 
-      let user = new User();
-      user.name = {first:'', last:''}
-      return of(user); //empty user
+      const user = new User();
+      user.name = { first: '', last: '' };
+      return of(user); // empty user
     }
     // return null;
     // return this.getAuthState.pipe(

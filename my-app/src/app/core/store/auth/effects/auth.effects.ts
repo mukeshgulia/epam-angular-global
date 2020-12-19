@@ -5,20 +5,14 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../../services/auth/auth.service';
 import { Observable, of } from 'rxjs';
-import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, LogOut } from '../actions/auth.actions';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure } from '../actions/auth.actions';
 
 
 @Injectable()
 export class AuthEffects {
 
-  constructor(
-    private actions: Actions,
-    private authService: AuthService,
-    private router: Router,
-  ) {}
-
   @Effect()
-  Login: Observable<any> = this.actions.pipe(
+  public Login: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN),
     map((action: LogIn) => action.payload),
     switchMap(payload => {
@@ -29,24 +23,24 @@ export class AuthEffects {
           return new LogInSuccess({token: response.token});
         }),
         catchError((error) => {
-          return of(new LogInFailure({ error: error }));
+          return of(new LogInFailure({ error }));
         })
       );
     })
   );
 
   @Effect({ dispatch: false })
-  LogInSuccess: Observable<any> = this.actions.pipe(
+  public LogInSuccess: Observable<any> = this.actions.pipe(
   ofType(AuthActionTypes.LOGIN_SUCCESS),
   map((action: LogInSuccess) => action.payload),
   tap((response) => {
     localStorage.setItem('token', response.token);
-    console.log(`loginsuccess token: ${response.token}`)
+    console.log(`loginsuccess token: ${response.token}`);
     this.router.navigateByUrl('/courses');
   }));
 
   @Effect({ dispatch: false })
-  LogInFailure: Observable<any> = this.actions.pipe(
+  public LogInFailure: Observable<any> = this.actions.pipe(
   ofType(AuthActionTypes.LOGIN_FAILURE)
   );
 
@@ -56,4 +50,11 @@ export class AuthEffects {
   tap((response) => {
     localStorage.removeItem('token');
   }));
+
+  constructor(
+    private actions: Actions,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
+
 }

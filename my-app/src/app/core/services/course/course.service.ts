@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { debounceTime, finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Course } from 'src/app/core/services/course/model/course';
 import { LoadingService } from '../loading/loading.service';
 

@@ -1,11 +1,7 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
-import { AuthState, selectAuthState } from '../store/auth/auth.state';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +14,12 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    return this.authService.isAuthenticted();
-    // this.isAuthenticted = this.authService.isAuthenticted();
-    // console.log(`guard: ${this.isAuthenticted }`)
-    // if (!this.isAuthenticted) {
-    //   this.router.navigateByUrl('/login');
-    // }
-    // return this.isAuthenticted;
+    const isAuthenticted: boolean =  this.authService.isAuthenticted();
+    console.log(`guard: ${isAuthenticted }`);
+    if (!isAuthenticted) {
+      this.router.navigateByUrl('/login');
+    }
+    return isAuthenticted;
 
     // return this.authService.isAuthenticted().pipe(
     //     tap((isAuthenticated) => {

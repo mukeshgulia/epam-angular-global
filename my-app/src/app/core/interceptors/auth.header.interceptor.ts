@@ -15,7 +15,7 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    let isAuthenticted: boolean = false;
+    // const isAuthenticted: boolean = false;
 
     if (this.authService.isAuthenticted()) {
       request = request.clone({
