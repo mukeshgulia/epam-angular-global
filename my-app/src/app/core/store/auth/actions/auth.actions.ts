@@ -24,7 +24,6 @@ export class LogInFailure implements Action {
 
 export class LogOut implements Action {
   readonly type = AuthActionTypes.LOGOUT;
-  constructor(public payload: any) {}
 }
 
 export type All =
