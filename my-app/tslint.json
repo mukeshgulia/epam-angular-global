@@ -17,7 +17,7 @@
     "indent": {
       "options": ["spaces"]
     },
-    "max-classes-per-file": [true, 1],
+    "max-classes-per-file": [true, 10],
     "file-name-casing": [true, "kebab-case"],
     "max-line-length": [true, 140],
     "member-access": [true, "check-accessor"],
