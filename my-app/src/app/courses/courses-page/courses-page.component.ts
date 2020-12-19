@@ -80,27 +80,27 @@ OnDestroy {
   }
 
   public ngOnChanges(): void {
-    console.log('Called ngOnChanges!');
+    // console.log('Called ngOnChanges!');
   }
 
   public ngAfterContentInit(): void {
-    console.log('Called ngAfterContentInit!');
+   // console.log('Called ngAfterContentInit!');
   }
 
   public ngAfterContentChecked(): void {
-    console.log('Called ngAfterContentChecked!');
+   // console.log('Called ngAfterContentChecked!');
   }
 
   public ngAfterViewInit(): void {
-    console.log('Called ngAfterViewInit!');
+   // console.log('Called ngAfterViewInit!');
   }
 
   public ngAfterViewChecked(): void {
-    console.log('Called ngAfterViewChecked!');
+   // console.log('Called ngAfterViewChecked!');
   }
 
   public ngOnDestroy(): void {
-    console.log('Called ngOnDestroy!');
+  //  console.log('Called ngOnDestroy!');
   }
 
 

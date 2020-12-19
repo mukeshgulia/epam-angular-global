@@ -12,27 +12,13 @@ import { AuthState, selectAuthState } from '../store/auth/auth.state';
 })
 export class AuthGuard implements CanActivate {
 
- // private isAuthenticted: boolean = false;
-  private getAuthState: Observable<any>;
-  constructor(private authService: AuthService, private store: Store<AuthState>, private router: Router) {
-    this.getAuthState = this.store.select(selectAuthState);
-  }
+  constructor(private authService: AuthService,  private router: Router) {}
 
   public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      let isAuth : boolean = false;
-      this.getAuthState.subscribe({
-        next: state=> {
-          isAuth = state.isAuthenticted
-        }
-      });
-
-      console.log(`guard: ${isAuth }`)
-      return isAuth;
-
-
+    return this.authService.isAuthenticted();
     // this.isAuthenticted = this.authService.isAuthenticted();
     // console.log(`guard: ${this.isAuthenticted }`)
     // if (!this.isAuthenticted) {

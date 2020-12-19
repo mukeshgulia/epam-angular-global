@@ -5,7 +5,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../../services/auth/auth.service';
 import { Observable, of } from 'rxjs';
-import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure } from '../actions/auth.actions';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, LogOut } from '../actions/auth.actions';
 
 
 @Injectable()
@@ -40,8 +40,8 @@ export class AuthEffects {
   ofType(AuthActionTypes.LOGIN_SUCCESS),
   map((action: LogInSuccess) => action.payload),
   tap((response) => {
-    // localStorage.setItem('token', user.payload.token);
-    console.log(`token here: ${response.token}`)
+    localStorage.setItem('token', response.token);
+    console.log(`loginsuccess token: ${response.token}`)
     this.router.navigateByUrl('/courses');
   }));
 
@@ -50,4 +50,11 @@ export class AuthEffects {
   ofType(AuthActionTypes.LOGIN_FAILURE)
   );
 
+  @Effect({ dispatch: false })
+  public LogOut: Observable<any> = this.actions.pipe(
+  ofType(AuthActionTypes.LOGOUT),
+  map((action: LogOut) => action.payload),
+  tap((response) => {
+    localStorage.removeItem('token');
+  }));
 }

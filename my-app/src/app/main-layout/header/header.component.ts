@@ -23,13 +23,13 @@ export class HeaderComponent implements OnInit {
 
   public checkAuth(): boolean {
 
-    return this.authSerivce.isAuthenticted();
-    // let isAuthenticted: boolean = false;
+//    return this.authSerivce.isAuthenticted();
+    let isAuthenticted: boolean = false;
 
-    // this.authSerivce.isAuthenticted()
-    // .subscribe( isAuth => isAuthenticted = isAuth);
+    this.authSerivce.observeAuth()
+    .subscribe( isAuth => isAuthenticted = isAuth);
 
-    // return isAuthenticted;
+    return isAuthenticted;
   }
 
   public logout(): void {

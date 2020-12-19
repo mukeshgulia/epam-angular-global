@@ -1,13 +1,13 @@
 import { All, AuthActionTypes } from '../actions/auth.actions';
 
 export interface State {
-  isAuthenticated: boolean;
+  // isAuthenticated: boolean;
   token: string | null;
   errorMessage: string | null;
 }
 
 export const initialState: State = {
-  isAuthenticated: false,
+  // isAuthenticated: false,
   token: null,
   errorMessage: null
 };
@@ -17,7 +17,7 @@ export function reducer(state = initialState, action: All): State {
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
-        isAuthenticated: true,
+        // isAuthenticated: true,
         token: action.payload.token,
         errorMessage: null
       };
