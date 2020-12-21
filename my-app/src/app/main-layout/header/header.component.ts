@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
     this.user$ = this.authStore.select(selectAuthState)
     .pipe(
-        map(state => `${state.authState.userinfo.name.first} ${state.authState.userinfo.name.last}`)
+        map(state => `${state?.authState?.userinfo?.name?.first} ${state?.authState?.userinfo?.name?.last}`)
     );
   }
 
