@@ -58,9 +58,7 @@ export class AuthService {
       return this.http.post<User>(`${this.baseUrl}/auth/userinfo`, this.getAuthToken());
     } else {
 
-      const user = new User();
-      user.name = { first: '', last: '' };
-      return of(user); // empty user
+      return of(new User(0, '', {first: '', last: ''}, '', '' )); // empty user
     }
     // return null;
     // return this.getAuthState.pipe(

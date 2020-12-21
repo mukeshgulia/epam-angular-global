@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {map} from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState, selectAuthState } from 'src/app/core/store/auth/auth.state';
 import { logout } from 'src/app/core/store/auth/actions/auth.actions';
@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
 
   public user$: Observable<string>;
 
+  public isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private authStore: Store<AuthState>) { }
 
   public ngOnInit(): void {
@@ -24,15 +26,14 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  public checkAuth(): boolean {
+  // public checkAuth(): boolean {
 
-    let isAuthenticted: boolean = false;
 
-    this.authStore.select(selectAuthState)
-    .subscribe( state => isAuthenticted = state.authState.isAuthenticated);
+  //   this.isAuth$ = this.authStore.select(selectAuthState)
+  //   .pipe(state => isAuthenticted = state.authState.isAuthenticated);
 
-    return isAuthenticted;
-  }
+  //   return isAuthenticted;
+  // }
 
   public logout(): void {
     this.authStore.dispatch(logout());

@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { User } from 'src/app/core/services/auth/model/user';
 import * as userActions from '../actions/auth.actions';
-import { AuthState } from '../auth.state';
 
 export interface State {
   isAuthenticated: boolean;
@@ -13,7 +12,7 @@ export interface State {
 export const initialState: State = {
   isAuthenticated: false,
   token: null,
-  userinfo: null,
+  userinfo: new User(0, '', {first: '', last: ''}, '', '' ),
   errorMessage: null
 };
 
