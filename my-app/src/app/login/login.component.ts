@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { LogIn } from '../core/store/auth/actions/auth.actions';
+import { login } from '../core/store/auth/actions/auth.actions';
 import { AuthState, selectAuthState } from '../core/store/auth/auth.state';
 
 @Component({
@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
 
   public authenticate(): void {
     const payload = {
-      email: this.email,
+      login: this.password,
       password: this.password
     };
-    this.store.dispatch(new LogIn(payload));
+    this.store.dispatch(login(payload));
   }
 
 }

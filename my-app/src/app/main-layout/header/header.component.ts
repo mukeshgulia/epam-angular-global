@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from 'src/app/core/store/auth/auth.state';
-import { LogOut } from 'src/app/core/store/auth/actions/auth.actions';
+import { logout } from 'src/app/core/store/auth/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout(): void {
-    this.store.dispatch(new LogOut());
+    this.store.dispatch(logout());
     // this.authSerivce.logout();
   }
 

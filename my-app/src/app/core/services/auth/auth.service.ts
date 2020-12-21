@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../auth/model/user';
 
 @Injectable({
@@ -12,19 +12,30 @@ export class AuthService {
   private baseUrl: string = 'http://localhost:3004';
 
   // public username: string;
-   public token$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
+  private userLoggedIn = new Subject<boolean>();
+  public token$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
 
-  constructor(private http: HttpClient, ) { }
+  constructor(private http: HttpClient ) {
+    this.userLoggedIn.next(false);
+  }
 
   public login(login: string, password: string): Observable<{token: string}> {
     return this.http.post<{token: string}>(`${this.baseUrl}/auth/login`, {login, password})
-    .pipe(tap((response) => this.token$.next(response.token)));
+    .pipe(
+      tap((response) => this.token$.next(response.token)),
+      map((response) => response)
+    );
   }
+
+  // public login(login: string, password: string): Observable<{token: string}> {
+  //   return this.http.post<{token: string}>(`${this.baseUrl}/auth/login`, {login, password})
+  //   .pipe(tap((response) => this.token$.next(response.token)));
+  // }
 
   public logout(): void {
     // console.log(`Logging out ${this.username}`);
     // this.username = null;
-    // this.token$.next(undefined);
+     this.token$.next(undefined);
   }
 
   public isAuthenticted(): boolean {
