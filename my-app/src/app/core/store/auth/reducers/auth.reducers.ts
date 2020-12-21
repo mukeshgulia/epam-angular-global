@@ -5,7 +5,7 @@ import * as userActions from '../actions/auth.actions';
 export interface State {
   isAuthenticated: boolean;
   token: string | null;
-  userinfo: User;
+  userinfo: User | null;
   errorMessage: string | null;
 }
 
