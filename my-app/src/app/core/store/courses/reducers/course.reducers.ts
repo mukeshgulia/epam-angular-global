@@ -1,6 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as userActions from '../actions/auth.actions';
-import { AuthState } from '../auth.state';
+import * as coursesActions from '../actions/auth.actions';
 
 export interface State {
   // isAuthenticated: boolean;
@@ -16,9 +15,9 @@ export const initialState: State = {
 
 const loginReducer = createReducer(
   initialState,
-  on(userActions.login, (state) => ({...state})),
-  on(userActions.loginSuccess, (state, result) => ({...state, token: result.token})),
-  on(userActions.logout, (state) => ({...state, token: null}))
+  on(coursesActions.login, (state) => ({...state})),
+  on(coursesActions.loginSuccess, (state, result) => ({...state, token: result.token})),
+  on(coursesActions.logout, (state) => ({...state, token: null}))
 );
 
 export function reducer(state: State | undefined, action: Action): any {
