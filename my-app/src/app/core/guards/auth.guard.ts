@@ -23,8 +23,6 @@ export class AuthGuard implements CanActivate {
         tap(token => {
           if (!token) {
             this.router.navigateByUrl('/login');
-          } else {
-            console.log('Success...');
           }
         })
       );
