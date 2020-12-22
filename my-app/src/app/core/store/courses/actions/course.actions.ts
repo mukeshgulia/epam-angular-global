@@ -6,8 +6,7 @@ export const GET_COURSES_SUCCESS = '[Courses] Get Courses Success';
 export const GET_COURSES_FAILURE = '[Courses] Get Courses Failure';
 
 export const getCourses = createAction(
-  GET_COURSES,
-  props<{count: number}>()
+  GET_COURSES
 );
 
 export const getCoursesSuccess = createAction(

@@ -14,10 +14,10 @@
       <!-- Task 2: Use ngFor -->
       <div
         class="coursesPage"
-        *ngIf="coursesView?.length; else elseBlock">
+        *ngIf="(courses$ | async)?.length > 0"; else elseBlock>
 
         <app-course-item
-          *ngFor="let course of coursesView | orderBy"
+          *ngFor="let course of courses$ | async | orderBy"
           [course] = "course"
           (courseId)="onDeleteCourse($event)">
         </app-course-item>

@@ -1,35 +1,23 @@
 // Task 2: Learn ngOnChanges and other interface call orders
 
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  AfterContentInit,
-  AfterContentChecked,
-  AfterViewInit,
-  AfterViewChecked,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CourseService } from 'src/app/core/services/course/course.service';
 
 import { Course } from 'src/app/core/services/course/model/course';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { CourseState } from 'src/app/core/store/courses/courses.state';
+import { Store } from '@ngrx/store';
+import { getCourses } from 'src/app/core/store/courses/actions/course.actions';
 
 @Component({
   selector: 'app-courses-page',
   templateUrl: './courses-page.component.html',
   styleUrls: ['./courses-page.component.scss']
 })
-export class CoursesPageComponent  implements
-OnChanges,
-OnInit,
-AfterContentInit,
-AfterContentChecked,
-AfterViewInit,
-AfterViewChecked,
-OnDestroy {
+export class CoursesPageComponent implements OnInit {
 
   private courseCount: number = 3;
 
@@ -37,15 +25,19 @@ OnDestroy {
 
   public coursesView: Course[] = [];
 
+  public courses$: Observable<Course[]>;
   constructor(
     private courseService: CourseService,
-    private breadCrumbService: BreadCrumbsService) {
+    private breadCrumbService: BreadCrumbsService,
+    private store: Store<CourseState>) {
     console.log('Called constructor!');
    }
 
   public ngOnInit(): void {
     this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
-    this.getCourses();
+    // this.getCourses();
+    this.store.dispatch(getCourses());
+    this.courses$ = this.store.select(state => state?.courseState?.courses);
   }
 
   public onDeleteCourse(id: number): void {
@@ -75,31 +67,6 @@ OnDestroy {
     this.courseCount += 3;
     this.getCourses();
   }
-
-  public ngOnChanges(): void {
-    // console.log('Called ngOnChanges!');
-  }
-
-  public ngAfterContentInit(): void {
-   // console.log('Called ngAfterContentInit!');
-  }
-
-  public ngAfterContentChecked(): void {
-   // console.log('Called ngAfterContentChecked!');
-  }
-
-  public ngAfterViewInit(): void {
-   // console.log('Called ngAfterViewInit!');
-  }
-
-  public ngAfterViewChecked(): void {
-   // console.log('Called ngAfterViewChecked!');
-  }
-
-  public ngOnDestroy(): void {
-  //  console.log('Called ngOnDestroy!');
-  }
-
 
   private getCourses(): void {
     this.courseService.getCourses(this.courseCount)

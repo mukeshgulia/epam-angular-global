@@ -9,6 +9,10 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchComponent } from '../search/search.component';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../core/store/courses/courses.state';
+import { EffectsModule } from '@ngrx/effects';
+import { CoursesEffects } from '../core/store/courses/effects/course.effects';
 
 
 
@@ -25,7 +29,10 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forRoot(reducers, {}),
+    EffectsModule.forRoot([CoursesEffects]),
+
   ]
 })
 export class CoursesModule { }

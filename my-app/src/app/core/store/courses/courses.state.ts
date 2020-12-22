@@ -1,12 +1,10 @@
-import { Action } from '@ngrx/store';
-import { Course } from '../../services/course/model/course';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as course from './reducers/course.reducers';
 
-export enum CoursesActionTypes {
-  COURSES_GET = '[Courses] GET'
+export interface CourseState {
+  courseState: course.State;
 }
 
-export class CoursesGet implements Action {
-  public readonly type = CoursesActionTypes.COURSES_GET;
-  constructor(public payload: Course[]) {}
-}
-
+export const reducers = {
+  course: course.reducer
+};
