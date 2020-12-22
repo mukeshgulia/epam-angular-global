@@ -15,13 +15,10 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    // const isAuthenticted: boolean = false;
-
     if (this.authService.isAuthenticted()) {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${this.authService.getAuthToken()}`}
       });
-      console.log(JSON.stringify(request.headers));
     }
 
 

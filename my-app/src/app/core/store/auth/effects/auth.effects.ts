@@ -51,7 +51,7 @@ export class AuthEffects {
       ofType(userActions.getUserInfo),
       exhaustMap((action) =>
         this.authService.getUserInfo(action.token).pipe(
-          tap(response => console.log(response)),
+          tap(response => console.log(`userinfo response: ${response}`)),
           map(response => userActions.userInfoSuccess({user: response})),
           catchError((error) => of(userActions.userInfoFailure(error))))
       )
