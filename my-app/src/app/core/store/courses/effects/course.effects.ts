@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError, withLatestFrom, mergeMap, tap } from 'rxjs/operators';
+import { map, exhaustMap, catchError, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CourseService } from '../../../services/course/course.service';
 import * as courseActions from '../actions/course.actions';
