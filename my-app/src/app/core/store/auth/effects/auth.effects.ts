@@ -14,7 +14,7 @@ export class AuthEffects {
       ofType(userActions.login),
       exhaustMap(action =>
         this.authService.login(action.login, action.password).pipe(
-          // map(response => response.token),
+          // map(response => userActions.loginSuccess(response)),
           switchMap(token => [
             userActions.loginSuccess(token),
             userActions.getUserInfo(token)

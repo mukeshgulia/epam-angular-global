@@ -31,10 +31,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule,
-    StoreModule.forRoot(reducers, {}),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([CoursesEffects]),
+    RouterModule// ,
+    // StoreModule.forRoot(reducers, {}),
+    // !environment.production ? StoreDevtoolsModule.instrument() : [],
+    // EffectsModule.forRoot([CoursesEffects]),
 
   ]
 })

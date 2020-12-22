@@ -57,8 +57,8 @@ export class AuthService {
     console.log(`get user info for ${token}`);
     if (this.isAuthenticted()) {
       console.log(`service getUserInfo: ${this.isAuthenticted()}`);
-      return this.http.post<User>(`${this.baseUrl}/auth/userinfo`, token);
-    } else { return of(dummyUser); };
+      return this.http.post<User>(`${this.baseUrl}/auth/userinfo`, {token});
+    } else { return of(dummyUser); }
 
   }
 

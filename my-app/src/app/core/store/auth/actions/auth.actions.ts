@@ -35,11 +35,11 @@ export const getUserInfo = createAction(
 );
 
 export const userInfoSuccess = createAction(
-  USER_LOGIN_SUCCESS,
+  USER_INFO_SUCCESS,
   props<{user: User}>()
 );
 
 export const userInfoFailure = createAction(
-  USER_LOGIN_FAILURE,
+  USER_INFO_FAILURE,
   props<{message: string}>()
 );

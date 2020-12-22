@@ -6,8 +6,8 @@ import * as userActions from '../actions/auth.actions';
 export interface State {
   isAuthenticated: boolean;
   token: string | null;
-  userinfo: User | null;
-  errorMessage: string | null;
+  userinfo?: User;
+  errorMessage?: string;
 }
 
 export const initialState: State = {
@@ -20,7 +20,7 @@ export const initialState: State = {
 const loginReducer = createReducer(
   initialState,
   on(userActions.login, (state) => ({...state})),
-  on(userActions.loginSuccess, (state, result) => ({...state, isAuthenticated: true, token: result.token, userinfo: dummyUser})),
+  on(userActions.loginSuccess, (state, result) => ({...state, isAuthenticated: true, token: result.token})),
   on(userActions.loginFailure, (state, result) => ({...state, isAuthenticated: false, token: null, errorMessage: result.message})),
   on(userActions.logout, (state) => ({...state, isAuthenticated: false, token: null, userinfo: dummyUser})),
   on(userActions.getUserInfo, (state) => ({...state})),

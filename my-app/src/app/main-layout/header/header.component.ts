@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {map} from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthState, selectAuthState } from 'src/app/core/store/auth/auth.state';
+import { AuthState } from 'src/app/core/store/auth/auth.state';
 import { logout } from 'src/app/core/store/auth/actions/auth.actions';
 
 @Component({
@@ -10,20 +10,31 @@ import { logout } from 'src/app/core/store/auth/actions/auth.actions';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
+  public user: string;
   public user$: Observable<string>;
 
-  public isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+   public userSubscription: Subscription;
 
   constructor(private authStore: Store<AuthState>) { }
 
   public ngOnInit(): void {
 
-    this.user$ = this.authStore.select(selectAuthState)
-    .pipe(
-        map(state => `${state?.authState?.userinfo?.name?.first} ${state?.authState?.userinfo?.name?.last}`)
-    );
+    // this.user$ = this.authStore.select(select => select.authState.userinfo)
+    // .pipe(
+    //     map(user => `${user.name.first} ${user.name.last}`)
+    // );
+
+    this.userSubscription = this.authStore.select(state => state.authState)
+    .subscribe(state => {
+      console.log(`state ${state}`);
+      this.user = `${state.userinfo.name.first} ${state.userinfo.name.last}`;
+    });
+  }
+
+  public ngOnDestroy(): void {
+//    this.userSubscription.unsubscribe();
   }
 
   // public checkAuth(): boolean {

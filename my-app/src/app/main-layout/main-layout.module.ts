@@ -17,9 +17,10 @@ import { LoadingComponent } from '../loading/loading.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '../core/store/auth/effects/auth.effects';
-import { reducers } from '../core/store/auth/auth.state';
+import { reducers } from '../core/store/app.state';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CoursesEffects } from '../core/store/courses/effects/course.effects';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpClientModule,
     StoreModule.forRoot(reducers, {}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, CoursesEffects]),
   ],
   providers: [
     {

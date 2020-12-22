@@ -14,7 +14,7 @@ export const initialState: State = {
   errorMessage: null
 };
 
-const loginReducer = createReducer(
+const courseReducer = createReducer(
   initialState,
   on(coursesActions.getCourses, (state) => ({...state})),
   on(coursesActions.getCoursesSuccess, (state, result) => ({...state, courses: result.courses})),
@@ -22,5 +22,5 @@ const loginReducer = createReducer(
 );
 
 export function reducer(state: State | undefined, action: Action): any {
-  return loginReducer(state, action);
+  return courseReducer(state, action);
 }
