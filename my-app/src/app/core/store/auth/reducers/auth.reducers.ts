@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { dummyUser } from 'src/app/core/constants';
 import { User } from 'src/app/core/services/auth/model/user';
 import * as userActions from '../actions/auth.actions';
 
@@ -12,16 +13,16 @@ export interface State {
 export const initialState: State = {
   isAuthenticated: false,
   token: null,
-  userinfo: new User(0, '', {first: '', last: ''}, '', '' ),
+  userinfo: dummyUser,
   errorMessage: null
 };
 
 const loginReducer = createReducer(
   initialState,
   on(userActions.login, (state) => ({...state})),
-  on(userActions.loginSuccess, (state, result) => ({...state, isAuthenticated: true, token: result.token})),
+  on(userActions.loginSuccess, (state, result) => ({...state, isAuthenticated: true, token: result.token, userinfo: dummyUser})),
   on(userActions.loginFailure, (state, result) => ({...state, isAuthenticated: false, token: null, errorMessage: result.message})),
-  on(userActions.logout, (state) => ({...state, token: null})),
+  on(userActions.logout, (state) => ({...state, isAuthenticated: false, token: null, userinfo: dummyUser})),
   on(userActions.getUserInfo, (state) => ({...state})),
   on(userActions.userInfoSuccess, (state, result) => ({...state, userinfo: result.user})),
   on(userActions.userInfoFailure, (state, result) => ({...state, userinfo: null, errorMessage: result.message})),

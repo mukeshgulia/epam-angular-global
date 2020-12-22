@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { dummyUser } from '../../constants';
 import { User } from '../auth/model/user';
 
 @Injectable({
@@ -52,18 +53,13 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  public getUserInfo(): Observable<User> {
+  public getUserInfo(token: string): Observable<User> {
+    console.log(`get user info for ${token}`);
     if (this.isAuthenticted()) {
       console.log(`service getUserInfo: ${this.isAuthenticted()}`);
-      return this.http.post<User>(`${this.baseUrl}/auth/userinfo`, this.getAuthToken());
-    } else {
+      return this.http.post<User>(`${this.baseUrl}/auth/userinfo`, token);
+    } else { return of(dummyUser); };
 
-      return of(new User(0, '', {first: '', last: ''}, '', '' )); // empty user
-    }
-    // return null;
-    // return this.getAuthState.pipe(
-    // filter((isAuthenticted) => !!isAuthenticted),
-    // switchMap((token) => this.http.post<User>(`${this.baseUrl}/auth/userinfo`, {token})));
   }
 
 }

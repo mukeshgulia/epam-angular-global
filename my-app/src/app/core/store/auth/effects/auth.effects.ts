@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators';
+import { map, exhaustMap, catchError, tap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from '../../../services/auth/auth.service';
 import * as userActions from '../actions/auth.actions';
@@ -14,7 +14,11 @@ export class AuthEffects {
       ofType(userActions.login),
       exhaustMap(action =>
         this.authService.login(action.login, action.password).pipe(
-          map(response => userActions.loginSuccess(response)),
+          // map(response => response.token),
+          switchMap(token => [
+            userActions.loginSuccess(token),
+            userActions.getUserInfo(token)
+          ]),
           catchError((error) => of(userActions.loginFailure(error))))
       )
     )
@@ -26,7 +30,6 @@ export class AuthEffects {
       tap(action => {
         localStorage.setItem('token', action.token);
         console.log(`loginsuccess token: ${action.token}`);
-        userActions.getUserInfo();
         this.router.navigateByUrl('/courses');
       })),
       { dispatch: false }
@@ -46,8 +49,9 @@ export class AuthEffects {
     public userInfo$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.getUserInfo),
-      exhaustMap(() =>
-        this.authService.getUserInfo().pipe(
+      exhaustMap((action) =>
+        this.authService.getUserInfo(action.token).pipe(
+          tap(response => console.log(response)),
           map(response => userActions.userInfoSuccess({user: response})),
           catchError((error) => of(userActions.userInfoFailure(error))))
       )

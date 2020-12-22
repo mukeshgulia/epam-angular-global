@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap, catchError, withLatestFrom, mergeMap } from 'rxjs/operators';
+import { map, exhaustMap, catchError, withLatestFrom, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CourseService } from '../../../services/course/course.service';
 import * as courseActions from '../actions/course.actions';
@@ -14,7 +14,7 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(courseActions.getCourses),
       withLatestFrom(this.store.select(state => state.courseState.count)),
-      mergeMap(([action, count]) =>
+      exhaustMap(([action, count]) =>
         this.courseService.getCourses(count).pipe(
           map(response => courseActions.getCoursesSuccess({courses: response})),
           catchError((error) => of(courseActions.getCoursesFailure(error))))

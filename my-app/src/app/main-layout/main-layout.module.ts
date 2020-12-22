@@ -18,6 +18,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '../core/store/auth/effects/auth.effects';
 import { reducers } from '../core/store/auth/auth.state';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { reducers } from '../core/store/auth/auth.state';
     CoursesModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {}),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [

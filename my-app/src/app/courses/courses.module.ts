@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '../core/store/courses/courses.state';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from '../core/store/courses/effects/course.effects';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 
@@ -31,6 +33,7 @@ import { CoursesEffects } from '../core/store/courses/effects/course.effects';
     SharedModule,
     RouterModule,
     StoreModule.forRoot(reducers, {}),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([CoursesEffects]),
 
   ]

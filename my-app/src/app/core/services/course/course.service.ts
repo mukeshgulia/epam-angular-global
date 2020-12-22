@@ -23,6 +23,7 @@ export class CourseService {
   }
 
   public getCourses(count: number): Observable<Course[]> {
+    console.log('Calling get courses from service');
     this.loadingServce.loading$.next(true);
     return this.http.get<Course[]>(`${this.BASE_URL}?start=0&count=${count}`)
     .pipe(finalize(() => this.loadingServce.loading$.next(false)));

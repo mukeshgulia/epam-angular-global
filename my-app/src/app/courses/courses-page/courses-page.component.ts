@@ -36,6 +36,7 @@ export class CoursesPageComponent implements OnInit {
   public ngOnInit(): void {
     this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
     // this.getCourses();
+    console.log('dispatching getCourses');
     this.store.dispatch(getCourses());
     this.courses$ = this.store.select(state => state?.courseState?.courses);
   }
