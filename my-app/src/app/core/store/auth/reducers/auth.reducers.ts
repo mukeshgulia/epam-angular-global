@@ -3,31 +3,49 @@ import { dummyUser } from 'src/app/core/constants';
 import { User } from 'src/app/core/services/auth/model/user';
 import * as userActions from '../actions/auth.actions';
 
-export interface State {
+export interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
-  userinfo?: User;
-  errorMessage?: string;
+  userinfo: User | null;
+  errorMessage: string | null;
 }
 
-export const initialState: State = {
+export const initialState: AuthState = {
   isAuthenticated: false,
   token: null,
-  userinfo: dummyUser,
+  userinfo: undefined,
   errorMessage: null
 };
 
 const loginReducer = createReducer(
   initialState,
-  on(userActions.login, (state) => ({...state})),
-  on(userActions.loginSuccess, (state, result) => ({...state, isAuthenticated: true, token: result.token})),
-  on(userActions.loginFailure, (state, result) => ({...state, isAuthenticated: false, token: null, errorMessage: result.message})),
-  on(userActions.logout, (state) => ({...state, isAuthenticated: false, token: null, userinfo: dummyUser})),
-  on(userActions.getUserInfo, (state) => ({...state})),
-  on(userActions.userInfoSuccess, (state, result) => ({...state, userinfo: result.user})),
-  on(userActions.userInfoFailure, (state, result) => ({...state, userinfo: null, errorMessage: result.message})),
+  on(userActions.loginSuccess, (state, result) => ({
+    ...state,
+    isAuthenticated: true,
+    token: result.token
+  })),
+  on(userActions.loginFailure, (state, result) => ({
+    ...state,
+    isAuthenticated: false,
+    token: null,
+    errorMessage: result.message
+  })),
+  on(userActions.logout, (state) => ({...state,
+    isAuthenticated: false,
+    token: null,
+    userinfo: undefined
+  })),
+  on(userActions.userInfoSuccess, (state, result) => ({
+    ...state,
+    userinfo: result.user
+  })),
+  on(userActions.userInfoFailure, (state, result) => ({
+    ...state,
+    userinfo: null,
+    errorMessage: result.message
+  })),
 );
 
-export function reducer(state: State | undefined, action: Action): any {
+export function reducer(state: AuthState | undefined, action: Action): any {
   return loginReducer(state, action);
 }

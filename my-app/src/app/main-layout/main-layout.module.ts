@@ -36,10 +36,7 @@ import { CoursesEffects } from '../core/store/courses/effects/course.effects';
     SharedModule,
     LoginModule,
     CoursesModule,
-    HttpClientModule,
-    StoreModule.forRoot(reducers, {}),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects, CoursesEffects]),
+    HttpClientModule
   ],
   providers: [
     {

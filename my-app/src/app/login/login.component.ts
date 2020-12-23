@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { login } from '../core/store/auth/actions/auth.actions';
-import { AuthState, selectAuthState } from '../core/store/auth/auth.state';
+import { AppState, authToken } from '../core/store//app.state';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +15,11 @@ export class LoginComponent implements OnInit {
   public email: string;
   public password: string;
   public errorMessage: string | null;
-  constructor(private store: Store<AuthState>) {
-    this.getAuthState = this.store.select(selectAuthState);
+  constructor(private store: Store<AppState>) {
+    this.getAuthState = this.store.select(authToken);
   }
 
   public ngOnInit(): void {
-    this.getAuthState.subscribe((state) => {
-      this.errorMessage = state.errorMessage;
-    });
   }
 
   public authenticate(): void {

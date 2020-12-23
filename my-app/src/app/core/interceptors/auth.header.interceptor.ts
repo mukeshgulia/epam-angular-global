@@ -7,43 +7,33 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
+import { AppState } from '../store/app.state';
+import { Store } from '@ngrx/store';
+import { authToken } from '../store/app.state';
+import { map, switchMap, take } from 'rxjs/operators';
 
 @Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private store: Store<AppState>) {}
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    if (this.authService.isAuthenticted()) {
-      request = request.clone({
-        setHeaders: { Authorization: `Bearer ${this.authService.getAuthToken()}`}
-      });
-
-      console.log(JSON.stringify(request));
-    }
-
-
-    // .subscribe(isAuth => isAuthenticted = isAuth);
-    // if (isAuthenticted) {
-    //   request = request.clone({
-    //     setHeaders: { Authorization: `Bearer ${this.authService.token$.value}` }
-    //   });
-
-    // }
-
-    return next.handle(request);
-
-    // return next.handle(request).do((event: HttpEvent<any>) => {
-    //   if (event instanceof HttpResponse) {
-    //       console.log('Received http response....');
-    //   }
-    // }, (err: any) => {
-    //   if (err instanceof HttpErrorResponse) {
-    //     if (err.status === 401) {
-    //       console.log(`Received http response error:: ${err.status}: ${err.message}`);
-    //     }
-    //   }
-    // });
-}
+    return this.store.select(authToken)
+    .pipe(
+      take(1),
+      map(token => {
+        if(token) {
+          return request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`}
+            }
+          );
+        } else {
+          return request;
+        }
+      }),
+      switchMap(request => next.handle(request))
+    );
+  }
 }

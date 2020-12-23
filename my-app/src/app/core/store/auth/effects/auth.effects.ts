@@ -39,8 +39,6 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(userActions.logout),
       tap(() => {
-        localStorage.removeItem('token');
-        this.authService.logout();
         this.router.navigateByUrl('/login');
       })),
       { dispatch: false }
@@ -51,7 +49,7 @@ export class AuthEffects {
       ofType(userActions.getUserInfo),
       exhaustMap((action) =>
         this.authService.getUserInfo(action.token).pipe(
-          tap(response => console.log(`userinfo response: ${response}`)),
+          // tap(response => console.log(`userinfo response: ${response}`)),
           map(response => userActions.userInfoSuccess({user: response})),
           catchError((error) => of(userActions.userInfoFailure(error))))
       )
