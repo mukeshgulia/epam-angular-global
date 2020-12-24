@@ -1,8 +1,6 @@
 // Task 2: Learn ngOnChanges and other interface call orders
 
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from 'src/app/core/services/course/course.service';
-
 import { Course } from 'src/app/core/services/course/model/course';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';

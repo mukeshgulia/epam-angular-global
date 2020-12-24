@@ -6,7 +6,6 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth/auth.service';
 import { AppState } from '../store/app.state';
 import { Store } from '@ngrx/store';
 import { authToken } from '../store/app.state';
@@ -15,7 +14,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 @Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService, private store: Store<AppState>) {}
+  constructor( private store: Store<AppState>) {}
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -23,17 +22,18 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
     .pipe(
       take(1),
       map(token => {
-        if(token) {
+        if (token) {
           return request.clone({
             setHeaders: {
-              Authorization: `Bearer ${token}`}
+              Authorization: `Bearer ${token}`
             }
+          }
           );
         } else {
           return request;
         }
       }),
-      switchMap(request => next.handle(request))
+      switchMap(req => next.handle(req))
     );
   }
 }

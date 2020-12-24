@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { dummyUser } from '../../constants';
+import { Observable } from 'rxjs';
 import { User } from '../auth/model/user';
 
 @Injectable({

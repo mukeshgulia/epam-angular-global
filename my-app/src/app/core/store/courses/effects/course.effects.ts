@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class CoursesEffects {
-  private courseId: number;
 
   public searchCourse$ = createEffect(() =>
     this.actions$.pipe(
