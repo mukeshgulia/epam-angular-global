@@ -6,6 +6,7 @@ import {
   catchError,
   withLatestFrom,
   tap,
+  switchMap,
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CourseService } from '../../../services/course/course.service';
@@ -80,30 +81,17 @@ export class CoursesEffects {
       ofType(courseActions.addCourse),
       exhaustMap((action) =>
         this.courseService.createCourse(action.course).pipe(
-          map((response) =>
-            courseActions.addCourseSuccess({ course: response })
-          ),
+          map(() => this.router.navigateByUrl('/courses')),
+          map(() => courseActions.getCourses({loadMore: false})),
           catchError((error) => of(courseActions.editCourseFailure(error)))
         )
       )
     )
   );
 
-  public addCourseSuccess = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(courseActions.addCourseSuccess),
-        tap(() => {
-          this.router.navigateByUrl('/courses');
-        })
-      ),
-    { dispatch: false }
-  );
-
   public deleteCourse$ = createEffect(() =>
     this.actions$.pipe(
       ofType(courseActions.deleteCourse),
-      tap((action) => (this.courseId = action.id)),
       exhaustMap((action) =>
         this.courseService.deleteCourse(action.id).pipe(
           map(() => courseActions.getCourses({loadMore: false})),

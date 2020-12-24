@@ -34,7 +34,6 @@ export class CourseEditorComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id')) {
       const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
 
-      console.log(`get course by id: ${id}`);
       this.store.select(courseById, { id }).subscribe((res) => {
         this.course = _.cloneDeep(res[0]);
         if (this.course) {
@@ -65,6 +64,7 @@ export class CourseEditorComponent implements OnInit {
   }
 
   public save(): void {
+    console.log(this.course);
     this.course.id = this.getId();
     this.fixAuthors();
     this.store.dispatch(addCourse({ course: this.course }));
@@ -88,7 +88,6 @@ export class CourseEditorComponent implements OnInit {
       const args = a.trim().split(' ');
       let lastName;
       let name;
-      console.log(args);
       if (args.length > 0) {
         name = args[0];
         lastName = args.slice(1).toString();
@@ -96,7 +95,6 @@ export class CourseEditorComponent implements OnInit {
         name = args.toString();
         lastName = '';
       }
-      console.log(`${name} ${lastName}`);
       const author: Author = new Author(this.getId(), name, lastName);
       this.course.authors.push(author);
     });

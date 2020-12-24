@@ -13,7 +13,6 @@ export class AuthEffects {
       ofType(userActions.login),
       exhaustMap((action) =>
         this.authService.login(action.login, action.password).pipe(
-          // map(response => userActions.loginSuccess(response)),
           switchMap((token) => [
             userActions.loginSuccess(token),
             userActions.getUserInfo(token),
@@ -49,7 +48,6 @@ export class AuthEffects {
       ofType(userActions.getUserInfo),
       exhaustMap((action) =>
         this.authService.getUserInfo(action.token).pipe(
-          // tap(response => console.log(`userinfo response: ${response}`)),
           map((response) => userActions.userInfoSuccess({ user: response })),
           catchError((error) => of(userActions.userInfoFailure(error)))
         )
