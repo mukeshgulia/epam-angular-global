@@ -17,9 +17,7 @@ export class CourseService {
   constructor(private http: HttpClient, private loadingServce: LoadingService) {}
 
   public search(text: string): Observable<Course[]> {
-//    this.loadingServce.loading$.next(true);
     return this.http.get<Course[]>(`${this.BASE_URL}?textFragment=${text}`);
-//    .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 
   public getCourses(count: number): Observable<Course[]> {

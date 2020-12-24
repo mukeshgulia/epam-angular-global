@@ -6,7 +6,6 @@ import { CourseService } from 'src/app/core/services/course/course.service';
 import { Course } from 'src/app/core/services/course/model/course';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
-import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AppState, allCourses } from 'src/app/core/store/app.state';
 import { Store } from '@ngrx/store';

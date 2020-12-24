@@ -68,17 +68,11 @@ export class CourseEditorComponent implements OnInit {
     this.course.id = this.getId();
     this.fixAuthors();
     this.store.dispatch(addCourse({ course: this.course }));
-    // this.courseService
-    //   .createCourse(this.course)
-    //   .subscribe(() => this.router.navigate(['courses']));
   }
 
   public update(): void {
     this.fixAuthors();
     this.store.dispatch(editCourse({ course: this.course }));
-    // this.courseService
-    //   .updateCourse(this.course)
-    //   .subscribe(() => this.router.navigate(['courses']));
   }
 
   private routeToCourses(): void {
