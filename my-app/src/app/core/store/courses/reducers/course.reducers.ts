@@ -16,7 +16,21 @@ export const initialState: CourseState = {
 
 const courseReducer = createReducer(
   initialState,
+  on(coursesActions.getCourses, (state, result) => ({
+    ...state,
+    count: result.loadMore ? state.count * 2 : state.count,
+  })),
   on(coursesActions.getCoursesSuccess, (state, result) => ({
+    ...state,
+    courses: result.courses,
+  })),
+  on(coursesActions.editCourseSuccess, (state, result) => ({
+    ...state,
+    courses: state.courses.map((currentCourse) =>
+      currentCourse.id === result.course.id ? result.course : currentCourse
+    ),
+  })),
+  on(coursesActions.searchCourseSuccess, (state, result) => ({
     ...state,
     courses: result.courses,
   })),
@@ -24,19 +38,15 @@ const courseReducer = createReducer(
     ...state,
     errorMessage: result.message,
   })),
-  on(coursesActions.editCourseSuccess, (state, result) => ({
-    ...state,
-    courses: result.courses,
-  })),
   on(coursesActions.editCourseFailure, (state, result) => ({
     ...state,
     errorMessage: result.message,
   })),
-  on(coursesActions.addCourseSuccess, (state, result) => ({
-    ...state,
-    courses: result.courses,
-  })),
   on(coursesActions.addCourseFailure, (state, result) => ({
+    ...state,
+    errorMessage: result.message,
+  })),
+  on(coursesActions.searchCourseFailure, (state, result) => ({
     ...state,
     errorMessage: result.message,
   }))

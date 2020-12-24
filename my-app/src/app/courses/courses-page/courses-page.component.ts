@@ -10,7 +10,7 @@ import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AppState, allCourses } from 'src/app/core/store/app.state';
 import { Store } from '@ngrx/store';
-import { getCourses } from 'src/app/core/store/courses/actions/course.actions';
+import { deleteCourse, getCourses, searchCourse } from 'src/app/core/store/courses/actions/course.actions';
 
 @Component({
   selector: 'app-courses-page',
@@ -18,7 +18,6 @@ import { getCourses } from 'src/app/core/store/courses/actions/course.actions';
   styleUrls: ['./courses-page.component.scss'],
 })
 export class CoursesPageComponent implements OnInit {
-  private courseCount: number = 3;
 
   public breadcrumbs: Breadcrumb[] = [];
 
@@ -26,7 +25,6 @@ export class CoursesPageComponent implements OnInit {
 
   public courses$: Observable<Course[]>;
   constructor(
-    private courseService: CourseService,
     private breadCrumbService: BreadCrumbsService,
     private store: Store<AppState>
   ) {
@@ -35,43 +33,22 @@ export class CoursesPageComponent implements OnInit {
 
   public ngOnInit(): void {
     this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
-    // this.getCourses();
-    console.log('dispatching getCourses');
-    this.store.dispatch(getCourses());
-    this.courses$ = this.store.select(allCourses).pipe(tap(console.log));
+    this.store.dispatch(getCourses({loadMore: false}));
+    this.courses$ = this.store.select(allCourses);
   }
 
   public onDeleteCourse(id: number): void {
     if (confirm(`Are you sure to delete course with id: ${id}`)) {
-      this.courseService.deleteCourse(id).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.getCourses();
-        },
-        error: (error) => {
-          console.error('There was an error while deleting course!', error);
-        },
-      });
+      this.store.dispatch(deleteCourse({id}));
     }
   }
 
   public search(text: string): void {
-    this.courseService
-      .search(text)
-      .pipe(map((courses) => courses.slice(0, this.courseCount)))
-      .subscribe((courses) => {
-        this.coursesView = courses;
-      });
+    this.store.dispatch(searchCourse({text}));
   }
 
-  public load(): void {
-    this.courseCount += 3;
-    this.store.dispatch(getCourses());
+  public loadMore(): void {
+    this.store.dispatch(getCourses({loadMore: false}));
+    this.courses$ = this.store.select(allCourses);
     }
-
-  private getCourses(): void {
-    this.courseService.getCourses(this.courseCount).subscribe((courses) => {
-      this.coursesView = courses;
-    });
-  }
 }

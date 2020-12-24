@@ -23,7 +23,6 @@ export class CourseService {
   }
 
   public getCourses(count: number): Observable<Course[]> {
-    console.log('Calling get courses from service');
     this.loadingServce.loading$.next(true);
     return this.http.get<Course[]>(`${this.BASE_URL}?start=0&count=${count}`)
     .pipe(finalize(() => this.loadingServce.loading$.next(false)));
@@ -42,16 +41,16 @@ export class CourseService {
 
   }
 
-  public createCourse(course: Course): Observable<Course[]> {
+  public createCourse(course: Course): Observable<Course> {
     this.loadingServce.loading$.next(true);
-    return this.http.post<Course[]>(`${this.BASE_URL}`, course)
+    return this.http.post<Course>(`${this.BASE_URL}`, course)
     .pipe(finalize(() => this.loadingServce.loading$.next(false)));
 
   }
 
-  public updateCourse(course: Course): Observable<Course[]> {
+  public updateCourse(course: Course): Observable<Course> {
     this.loadingServce.loading$.next(true);
-    return this.http.patch<Course[]>(`${this.BASE_URL}/${course.id}`, course)
+    return this.http.patch<Course>(`${this.BASE_URL}/${course.id}`, course)
     .pipe(finalize(() => this.loadingServce.loading$.next(false)));
   }
 }

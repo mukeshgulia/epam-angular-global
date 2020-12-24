@@ -8,50 +8,51 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
-
   public userLogin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.login),
-      exhaustMap(action =>
+      exhaustMap((action) =>
         this.authService.login(action.login, action.password).pipe(
           // map(response => userActions.loginSuccess(response)),
-          switchMap(token => [
+          switchMap((token) => [
             userActions.loginSuccess(token),
-            userActions.getUserInfo(token)
+            userActions.getUserInfo(token),
           ]),
-          catchError((error) => of(userActions.loginFailure(error))))
+          catchError((error) => of(userActions.loginFailure(error)))
+        )
       )
     )
   );
 
   public userLoginSuccess = createEffect(
-    () => this.actions$.pipe(
-      ofType(userActions.loginSuccess),
-      tap(action => {
-        localStorage.setItem('token', action.token);
-        console.log(`loginsuccess token: ${action.token}`);
-        this.router.navigateByUrl('/courses');
-      })),
-      { dispatch: false }
-    );
+    () =>
+      this.actions$.pipe(
+        ofType(userActions.loginSuccess),
+        tap(() => this.router.navigateByUrl('/courses'))
+      ),
+    { dispatch: false }
+  );
 
   public userLogOut = createEffect(
-    () => this.actions$.pipe(
-      ofType(userActions.logout),
-      tap(() => {
-        this.router.navigateByUrl('/login');
-      })),
-      { dispatch: false }
-    );
+    () =>
+      this.actions$.pipe(
+        ofType(userActions.logout),
+        tap(() => {
+          this.router.navigateByUrl('/login');
+        })
+      ),
+    { dispatch: false }
+  );
 
-    public userInfo$ = createEffect(() =>
+  public userInfo$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.getUserInfo),
       exhaustMap((action) =>
         this.authService.getUserInfo(action.token).pipe(
           // tap(response => console.log(`userinfo response: ${response}`)),
-          map(response => userActions.userInfoSuccess({user: response})),
-          catchError((error) => of(userActions.userInfoFailure(error))))
+          map((response) => userActions.userInfoSuccess({ user: response })),
+          catchError((error) => of(userActions.userInfoFailure(error)))
+        )
       )
     )
   );
@@ -59,7 +60,6 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
-
 }

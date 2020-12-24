@@ -27,7 +27,6 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.store.select(authToken).pipe(
-      tap(console.log),
       map((token) => !!token),
       tap((token) => {
         if (!token) {
