@@ -63,6 +63,10 @@ export class CourseEditorComponent implements OnInit {
     this.routeToCourses();
   }
 
+  public submit(): void {
+    this.isNew ? this.save() : this.update();
+  }
+
   public save(): void {
     console.log(this.course);
     this.course.id = this.getId();

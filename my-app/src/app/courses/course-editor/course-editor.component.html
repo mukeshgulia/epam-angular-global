@@ -1,82 +1,61 @@
 <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
 <div class="container bg-light">
-    <form>
+  <form name ="courseEditor" #f="ngForm" (ngSubmit)="submit()">
       <div class="form-group">
         <label for="title">Title:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide course name"
-          id="title" name="title"
-          required
-          [(ngModel)]="course.name">
+        <input [class.has-error]="title.invalid && title.dirty"
+        class="form-control" type="text" placeholder="Provide course name" id="title" name="title" required
+          ng-maxlength="50" #title = "ngModel" [(ngModel)]="course.name">
       </div>
 
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide course description"
-          id="description" name="description"
-          required
-          [(ngModel)]="course.description">
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input [class.has-error]="title.invalid && title.dirty"
+      class="form-control" type="text" placeholder="Provide course description" id="description"
+        name="description" required ng-maxlength="500" [(ngModel)]="course.description">
+    </div>
+
+    <div class="form-group">
+      <label for="date">Creation Date:</label>
+      <input [class.has-error]="title.invalid && title.dirty"
+      class="form-control" type="text" placeholder="Enter date in format yyyy-mm-dd" id="date" name="date"
+        required appDateValidator  #userDate="ngModel" [(ngModel)]="course.date"
+        [ngClass]="{'is-invalid': (userDate.touched || userDate.dirty) && !userDate.valid }" >
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duration:
+        <span *ngIf="course.length && course.length > 0"><i class="far fa-clock"></i>
+          {{ course.length | duration }}</span>
+      </label>
+      <input [class.has-error]="title.invalid && title.dirty"
+      class="form-control" type="text" placeholder="Provide minutes" id="duration" name="duration" required
+      appNumberValidator #userDuration="ngModel" [(ngModel)]="course.length"
+      [ngClass]="{'is-invalid': (userDuration.touched || userDuration.dirty) && !userDuration.valid }">
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="toprated" name="toprated"
+        [(ngModel)]="course.isTopRated">
+      <label for="toprated">Top rated</label>
+    </div>
+
+    <div class="form-group">
+      <label for="authors">Authors:</label>
+      <input [class.has-error]="title.invalid && title.dirty"
+      class="form-control" type="text" placeholder="Provide authors" id="authors" name="authors" required
+        [(ngModel)]="authors">
+    </div>
+
+
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-danger" (click)="cancel()" id="cancel-button">Cancel</button>
+        <!-- <button class="btn btn-primary offset-1"
+            (click)="isNew ? save() : update()" id="delete-button">Save</button> -->
+        <button class="btn btn-primary offset-1" id="delete-button" [disabled]="f.invalid">Save</button>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="date">Creation Date:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Enter date in format yyyy-mm-dd"
-          id="date" name="date"
-          required
-          [(ngModel)]="course.date">
-      </div>
-
-      <div class="form-group">
-        <label for="duration">Duration:
-          <span *ngIf="course.length && course.length > 0"><i class="far fa-clock"></i> {{ course.length | duration }}</span>
-        </label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide minutes"
-          id="duration" name="duration"
-          required
-          [(ngModel)]="course.length">
-      </div>
-
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="toprated" name="toprated"
-          required
-          [(ngModel)]="course.isTopRated">
-          <label for="toprated">Top rated</label>
-      </div>
-
-      <div class="form-group">
-        <label for="authors">Authors:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide authors"
-          id="authors" name="authors"
-          required
-          [(ngModel)]="authors">
-      </div>
-
-
-      <div class="row">
-        <div class="col">
-          <button class="btn btn-danger"
-            (click)="cancel()" id="cancel-button">Cancel</button>
-          <button class="btn btn-primary offset-1"
-            (click)="isNew ? save() : update()" id="delete-button">Save</button>
-        </div>
-      </div>
-
-    </form>
-  </div>
+  </form>
+</div>
