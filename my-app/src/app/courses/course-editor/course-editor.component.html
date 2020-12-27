@@ -10,14 +10,14 @@
 
     <div class="form-group">
       <label for="description">Description:</label>
-      <input [class.has-error]="title.invalid && title.dirty"
+      <input [class.has-error]="description.invalid && description.dirty"
       class="form-control" type="text" placeholder="Provide course description" id="description"
-        name="description" required ng-maxlength="500" [(ngModel)]="course.description">
+        name="description" required ng-maxlength="500" #description = "ngModel" [(ngModel)]="course.description">
     </div>
 
     <div class="form-group">
       <label for="date">Creation Date:</label>
-      <input [class.has-error]="title.invalid && title.dirty"
+      <input [class.has-error]="userDate.invalid && userDate.dirty"
       class="form-control" type="text" placeholder="Enter date in format yyyy-mm-dd" id="date" name="date"
         required appDateValidator  #userDate="ngModel" [(ngModel)]="course.date"
         [ngClass]="{'is-invalid': (userDate.touched || userDate.dirty) && !userDate.valid }" >
@@ -28,7 +28,7 @@
         <span *ngIf="course.length && course.length > 0"><i class="far fa-clock"></i>
           {{ course.length | duration }}</span>
       </label>
-      <input [class.has-error]="title.invalid && title.dirty"
+      <input [class.has-error]="userDuration.invalid && userDuration.dirty"
       class="form-control" type="text" placeholder="Provide minutes" id="duration" name="duration" required
       appNumberValidator #userDuration="ngModel" [(ngModel)]="course.length"
       [ngClass]="{'is-invalid': (userDuration.touched || userDuration.dirty) && !userDuration.valid }">
@@ -41,10 +41,12 @@
     </div>
 
     <div class="form-group">
-      <label for="authors">Authors:</label>
-      <input [class.has-error]="title.invalid && title.dirty"
+      <app-author-editor
+        [authorsFromEditor] = "course.authors"
+        [allAuthors] = "allAuthors"></app-author-editor>
+      <!-- <input [class.has-error]="title.invalid && title.dirty"
       class="form-control" type="text" placeholder="Provide authors" id="authors" name="authors" required
-        [(ngModel)]="authors">
+        [(ngModel)]="authors"> -->
     </div>
 
 

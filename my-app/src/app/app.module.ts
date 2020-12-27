@@ -11,7 +11,9 @@ import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './core/store/auth/effects/auth.effects';
+import { AuthorEffects } from './core/store/authors/effects/author.effects';
 import { CoursesEffects } from './core/store/courses/effects/course.effects';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [ AppComponent, PageNotFoundComponent ],
@@ -21,7 +23,8 @@ import { CoursesEffects } from './core/store/courses/effects/course.effects';
     MainLayoutModule,
     StoreModule.forRoot(reducers, {}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects, CoursesEffects])
+    EffectsModule.forRoot([AuthEffects, CoursesEffects, AuthorEffects]),
+    NoopAnimationsModule
   ],
   bootstrap: [AppComponent]
 })

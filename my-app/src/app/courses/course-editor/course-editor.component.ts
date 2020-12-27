@@ -1,28 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
 import { Author } from 'src/app/core/services/course/model/author';
 import { Course } from 'src/app/core/services/course/model/course';
-import { AppState, courseById } from 'src/app/core/store/app.state';
+import { AppState, authorsAll, courseById } from 'src/app/core/store/app.state';
 import {
   editCourse,
   addCourse,
 } from 'src/app/core/store/courses/actions/course.actions';
 import * as _ from 'lodash';
+import { Observable, Subscription } from 'rxjs';
+import { getAuthors } from 'src/app/core/store/authors/actions/author.actions';
 
 @Component({
   selector: 'app-course-editor',
   templateUrl: './course-editor.component.html',
   styleUrls: ['./course-editor.component.scss'],
 })
-export class CourseEditorComponent implements OnInit {
+export class CourseEditorComponent implements OnInit, OnDestroy {
   public breadcrumbs: Breadcrumb[];
   public course: Course;
   public authors: string;
   public isNew: boolean;
 
+  public allAuthors: Author[];
+  public authorSubscription: Subscription;
   constructor(
     private store: Store<AppState>,
     private breadCrumbService: BreadCrumbsService,
@@ -31,6 +35,8 @@ export class CourseEditorComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.store.dispatch(getAuthors());
+
     if (this.route.snapshot.paramMap.get('id')) {
       const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
 
@@ -41,7 +47,7 @@ export class CourseEditorComponent implements OnInit {
             this.course.authors.values(),
             (v) => `${v.name} ${v.lastName}`
           ).join(',');
-          this.course.authors = [];
+          // this.course.authors = [];
           this.breadcrumbs = this.breadCrumbService.getCourseEditorCrumbs(
             this.course
           );
@@ -57,6 +63,19 @@ export class CourseEditorComponent implements OnInit {
       ).join(',');
       this.isNew = true;
     }
+
+    this.authorSubscription = this.store
+      .select(authorsAll)
+      .subscribe((authors) => {
+        console.log(`course editor - in subs: ${authors}`);
+        this.allAuthors = authors;
+      });
+    console.log(`course editor - on init: ${this.allAuthors}`);
+  }
+
+  public ngOnDestroy(): void {
+    console.log(`course editor - on destroy: ${this.allAuthors}`);
+    this.authorSubscription.unsubscribe();
   }
 
   public cancel(): void {
