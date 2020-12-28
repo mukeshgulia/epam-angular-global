@@ -9,7 +9,7 @@
           placeholder="Provide course name"
           id="title" name="title"
           required
-          [(ngModel)]="course.title">
+          [(ngModel)]="course.name">
       </div>
 
       <div class="form-group">
@@ -31,12 +31,12 @@
           placeholder="Enter date in format yyyy-mm-dd"
           id="date" name="date"
           required
-          [(ngModel)]="course.creationDate">
+          [(ngModel)]="course.date">
       </div>
 
       <div class="form-group">
         <label for="duration">Duration:
-          <span *ngIf="course.duration && course.duration > 0"><i class="far fa-clock"></i> {{ course.duration | duration }}</span>
+          <span *ngIf="course.length && course.length > 0"><i class="far fa-clock"></i> {{ course.length | duration }}</span>
         </label>
         <input
           class="form-control"
@@ -44,7 +44,7 @@
           placeholder="Provide minutes"
           id="duration" name="duration"
           required
-          [(ngModel)]="course.duration">
+          [(ngModel)]="course.length">
       </div>
 
       <div class="form-check">
@@ -53,9 +53,21 @@
           type="checkbox"
           id="toprated" name="toprated"
           required
-          [(ngModel)]="course.topRated">
+          [(ngModel)]="course.isTopRated">
           <label for="toprated">Top rated</label>
       </div>
+
+      <div class="form-group">
+        <label for="authors">Authors:</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Provide authors"
+          id="authors" name="authors"
+          required
+          [(ngModel)]="authors">
+      </div>
+
 
       <div class="row">
         <div class="col">

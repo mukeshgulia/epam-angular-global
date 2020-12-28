@@ -2,16 +2,20 @@ import { UserInterface } from './user.interface';
 
 export class User implements UserInterface {
   public id: number;
-  public firstName: string;
-  public lastName: string;
-  public email: string;
   public token: string;
+  public name: {
+      first: string;
+      last: string;
+  };
+  public login: string;
+  public password: string;
 
-  constructor(id: number, firstName: string, lastName: string, email: string, token: string) {
+  constructor(id: number, token: string, name: {first: string, last: string}, login: string, password: string) {
     this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
     this.token = token;
+    this.name = name;
+    this.login = login;
+    this.password = password;
   }
 }
+

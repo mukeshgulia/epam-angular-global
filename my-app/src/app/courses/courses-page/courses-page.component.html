@@ -4,7 +4,7 @@
     <div class="row row-margin-bottom_30">
         <div class="col justify-content-around d-flex flex-column">
           <!-- Task 2: Search -->
-          <app-search (search)="filter($event)"></app-search>
+          <app-search (search)="search($event)"></app-search>
         </div>
         <div class="col-md-auto">
           <!-- Task 2: Add Course  -->
@@ -14,17 +14,23 @@
       <!-- Task 2: Use ngFor -->
       <div
         class="coursesPage"
-        *ngIf="coursesView?.length; else elseBlock">
+        *ngIf="(courses$ | async)?.length > 0; else elseBlock">
 
-        <app-course-item
-          *ngFor="let course of coursesView | orderBy"
+        <!-- <app-course-item
+          *ngFor="let course of courses$ | async | orderBy"
           [course] = "course"
           (courseId)="onDeleteCourse($event)">
-        </app-course-item>
+        </app-course-item> -->
+
+        <app-course-item
+        *ngFor="let course of courses$ | async"
+        [course] = "course"
+        (courseId)="onDeleteCourse($event)">
+       </app-course-item>
 
         <div class="row justify-content-center bg-light">
           <!-- Task 2  Load More-->
-          <a href="#">Load More</a>
+          <a [routerLink]="['/courses']" (click)="loadMore()">Load More</a>
         </div>
       </div>
       <ng-template #elseBlock>

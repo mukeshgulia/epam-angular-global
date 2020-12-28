@@ -25,7 +25,8 @@ describe('CourseItemComponent', () => {
       title: 'Course title',
       creationDate: new Date(),
       duration: 100, description: 'Course description',
-      topRated: false
+      topRated: false,
+      authors: []
     };
     fixture.detectChanges();
   });

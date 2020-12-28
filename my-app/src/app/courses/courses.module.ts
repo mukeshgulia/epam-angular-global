@@ -10,8 +10,6 @@ import { SearchComponent } from '../search/search.component';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     AddCourseComponent,
@@ -19,13 +17,8 @@ import { RouterModule } from '@angular/router';
     CourseEditorComponent,
     CoursesPageComponent,
     SearchComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    RouterModule
-  ]
+  imports: [CommonModule, FormsModule, SharedModule, RouterModule],
 })
-export class CoursesModule { }
+export class CoursesModule {}

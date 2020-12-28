@@ -10,7 +10,7 @@ describe('CourseItemComponent', () => {
 
   let hostComponent: TestHostComponent;
   let hostFixture: ComponentFixture<TestHostComponent>;
-  const courseContent = new Course(1, 'hosted-course', new Date(), 100, 'hosted-course-description');
+  const courseContent = new Course(1, 'hosted-course', new Date(), 100, 'hosted-course-description', false, null);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
