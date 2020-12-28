@@ -13,7 +13,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-author-editor',
@@ -46,8 +46,9 @@ export class AuthorEditorComponent implements OnInit {
     this.filteredAuthors = this.authorControl.valueChanges.pipe(
       // tslint:disable-next-line:deprecation
       startWith(null),
-      map((author: string | null) =>
-        author ? this._filter(author) : this.allAuthors.slice()
+      tap(name => console.log(`tap ${name}`)),
+      map((authorName: string | null) =>
+        authorName ? this._filter(authorName) : this.allAuthors.slice()
       )
     );
     this.authors =
@@ -60,10 +61,6 @@ export class AuthorEditorComponent implements OnInit {
 
     // Add new author
     if ((value || '').trim()) {
-      const values: string[] = value.split(' ');
-      const firstName: string = values[0];
-      const lastName: string = values.splice(1).join(' ');
-
       this.authors.push(this.createAuthor(value));
     }
 
@@ -90,6 +87,7 @@ export class AuthorEditorComponent implements OnInit {
   }
 
   private _filter(name: string): Author[] {
+    console.log(`_filter: ${name}`);
     const filterName = name.toLowerCase();
     return this.allAuthors.filter(
       (a) => a.name.toLowerCase().indexOf(filterName) === 0

@@ -36,6 +36,13 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.store.dispatch(getAuthors());
+    this.authorSubscription = this.store
+      .select(authorsAll)
+      .subscribe((authors) => {
+        console.log(`course editor - in subs: ${authors}`);
+        this.allAuthors = authors;
+      });
+    console.log(`course editor - on init: ${this.allAuthors}`);
 
     if (this.route.snapshot.paramMap.get('id')) {
       const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -64,13 +71,6 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
       this.isNew = true;
     }
 
-    this.authorSubscription = this.store
-      .select(authorsAll)
-      .subscribe((authors) => {
-        console.log(`course editor - in subs: ${authors}`);
-        this.allAuthors = authors;
-      });
-    console.log(`course editor - on init: ${this.allAuthors}`);
   }
 
   public ngOnDestroy(): void {

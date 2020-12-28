@@ -26,7 +26,7 @@
   </mat-chip-list>
 
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let author of filteredAuthors | async"  [value]="author">
+    <mat-option *ngFor="let author of filteredAuthors | async" [value]="author">
       {{ author.name }} {{ author.lastName}}
     </mat-option>
   </mat-autocomplete>

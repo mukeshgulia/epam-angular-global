@@ -20,7 +20,14 @@ export const reducers = {
 export const authFeatureSelector = createFeatureSelector<auth.AuthState>(
   'auth'
 );
+export const courseFeatureSelector = createFeatureSelector<course.CourseState>(
+  'course'
+);
+export const authorFeatureSelector = createFeatureSelector<author.AuthorState>(
+  'author'
+);
 
+// auth state selectors
 export const authToken = createSelector(
   authFeatureSelector,
   (state) => state.token
@@ -31,10 +38,7 @@ export const userInfo = createSelector(
   (state) => state.userinfo
 );
 
-export const courseFeatureSelector = createFeatureSelector<course.CourseState>(
-  'course'
-);
-
+// course state selectors
 export const courseCount = createSelector(
   courseFeatureSelector,
   (state) => state.count
@@ -54,9 +58,7 @@ export const courseAuthors = createSelector(courseFeatureSelector,
   (state) => [].concat.apply([], state.courses.map((c) => c.authors))
 );
 
-export const authorFeatureSelector = createFeatureSelector<author.AuthorState>(
-  'author'
-);
+// author state selectors
 export const authorsAll = createSelector(
   authorFeatureSelector,
   (state) => state.authors
