@@ -45,7 +45,7 @@ export class CoursesPageComponent implements OnInit {
   }
 
   public loadMore(): void {
-    this.store.dispatch(getCourses({loadMore: false}));
+    this.store.dispatch(getCourses({loadMore: true}));
     this.courses$ = this.store.select(allCourses);
     }
 }

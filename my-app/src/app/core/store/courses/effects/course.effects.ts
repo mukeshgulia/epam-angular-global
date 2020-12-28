@@ -41,7 +41,7 @@ export class CoursesEffects {
       ofType(courseActions.getCourses),
       withLatestFrom(this.store.select(courseCount)),
       exhaustMap(([action, count]) =>
-        this.courseService.getCourses(action.loadMore ? count * 2 : count).pipe(
+        this.courseService.getCourses(count).pipe(
           map((response) =>
             courseActions.getCoursesSuccess({ courses: response })
           ),
