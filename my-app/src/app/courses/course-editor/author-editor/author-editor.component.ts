@@ -46,11 +46,9 @@ export class AuthorEditorComponent implements OnInit {
 
   public ngOnInit(): void {
     const temp = JSON.stringify(this.allAuthors);
-    console.log(`author editor: ${temp}`);
     this.filteredAuthors = this.authorControl.valueChanges.pipe(
       // tslint:disable-next-line:deprecation
       startWith(''),
-      // tap((name) => console.log(`tap ${name}`)),
       filter((name) => typeof name === 'string'),
       map((name: string | null) =>
         name ? this._filter(name) : this.allAuthors.slice()
@@ -103,13 +101,6 @@ export class AuthorEditorComponent implements OnInit {
             author.name.toLowerCase()
         ) === -1 && author.name.toLowerCase().indexOf(query.toLowerCase()) === 0
     );
-    //  {
-    //   return filterName.includes(' ')
-    //     ? a.name.toLowerCase().indexOf(filterName.split(' ')[0]) === 0 &&
-    //       a.name.toLowerCase().indexOf(` ${filterName.split(' ')[1]}`) === 0
-    //     : a.name.toLowerCase().indexOf(filterName) === 0;
-    // }
-    // );
   }
 
   private getId(): number {

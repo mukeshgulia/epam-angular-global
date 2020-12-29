@@ -11,8 +11,8 @@ import {
   addCourse,
 } from 'src/app/core/store/courses/actions/course.actions';
 import * as _ from 'lodash';
-import { Observable, Subscription } from 'rxjs';
-import { getAuthors } from 'src/app/core/store/authors/actions/author.actions';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-editor',
@@ -35,14 +35,12 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.store.dispatch(getAuthors());
     this.authorSubscription = this.store
       .select(authorsAll)
+      .pipe(filter(authors => !!authors))
       .subscribe((authors) => {
-        console.log(`course editor - in subs: ${authors}`);
         this.allAuthors = authors;
       });
-    console.log(`course editor - on init: ${this.allAuthors}`);
 
     if (this.route.snapshot.paramMap.get('id')) {
       const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -50,11 +48,6 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
       this.store.select(courseById, { id }).subscribe((res) => {
         this.course = _.cloneDeep(res[0]);
         if (this.course) {
-          // this.authors = Array.from(
-          //   this.course.authors.values(),
-          //   (v) => `${v.name} ${v.lastName}`
-          // ).join(',');
-          // this.course.authors = [];
           this.breadcrumbs = this.breadCrumbService.getCourseEditorCrumbs(
             this.course
           );
@@ -64,16 +57,11 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
     } else {
       this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
       this.course = new Course(-1, '', undefined, undefined, '', false, []);
-      // this.authors = Array.from(
-      //   this.course.authors.values(),
-      //   (v) => `${v.name} ${v.lastName}`
-      // ).join(',');
       this.isNew = true;
     }
   }
 
   public ngOnDestroy(): void {
-    console.log(`course editor - on destroy: ${this.allAuthors}`);
     this.authorSubscription.unsubscribe();
   }
 
@@ -88,12 +76,10 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
   public save(): void {
     console.log(this.course);
     this.course.id = this.getId();
-    // this.fixAuthors();
     this.store.dispatch(addCourse({ course: this.course }));
   }
 
   public update(): void {
-    // this.fixAuthors();
     this.store.dispatch(editCourse({ course: this.course }));
   }
 
@@ -108,22 +94,5 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
 
   private getId(): number {
     return Math.random() * 1000;
-  }
-
-  private fixAuthors(): void {
-    this.authors.split(',').map((a) => {
-      const args = a.trim().split(' ');
-      let lastName;
-      let name;
-      if (args.length > 0) {
-        name = args[0];
-        lastName = args.slice(1).toString();
-      } else {
-        name = args.toString();
-        lastName = '';
-      }
-      const author: Author = new Author(this.getId(), name, lastName);
-      this.course.authors.push(author);
-    });
   }
 }

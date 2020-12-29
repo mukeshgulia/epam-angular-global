@@ -17,6 +17,7 @@ export class AuthEffects {
           switchMap((token) => [
             userActions.loginSuccess(token),
             userActions.getUserInfo(token),
+            authorActions.getAuthors()
           ]),
           catchError((error) => of(userActions.loginFailure(error)))
         )
