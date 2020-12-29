@@ -50,10 +50,10 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
       this.store.select(courseById, { id }).subscribe((res) => {
         this.course = _.cloneDeep(res[0]);
         if (this.course) {
-          this.authors = Array.from(
-            this.course.authors.values(),
-            (v) => `${v.name} ${v.lastName}`
-          ).join(',');
+          // this.authors = Array.from(
+          //   this.course.authors.values(),
+          //   (v) => `${v.name} ${v.lastName}`
+          // ).join(',');
           // this.course.authors = [];
           this.breadcrumbs = this.breadCrumbService.getCourseEditorCrumbs(
             this.course
@@ -64,13 +64,12 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
     } else {
       this.breadcrumbs = this.breadCrumbService.getCoursePageCrumbs();
       this.course = new Course(-1, '', undefined, undefined, '', false, []);
-      this.authors = Array.from(
-        this.course.authors.values(),
-        (v) => `${v.name} ${v.lastName}`
-      ).join(',');
+      // this.authors = Array.from(
+      //   this.course.authors.values(),
+      //   (v) => `${v.name} ${v.lastName}`
+      // ).join(',');
       this.isNew = true;
     }
-
   }
 
   public ngOnDestroy(): void {
@@ -89,13 +88,18 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
   public save(): void {
     console.log(this.course);
     this.course.id = this.getId();
-    this.fixAuthors();
+    // this.fixAuthors();
     this.store.dispatch(addCourse({ course: this.course }));
   }
 
   public update(): void {
-    this.fixAuthors();
+    // this.fixAuthors();
     this.store.dispatch(editCourse({ course: this.course }));
+  }
+
+  public onauthorsChange(newAutors: Author[]): void {
+    console.log(JSON.stringify(newAutors));
+    this.course.authors = newAutors;
   }
 
   private routeToCourses(): void {

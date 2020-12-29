@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
   Output,
@@ -13,8 +14,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
-import { map, startWith, tap } from 'rxjs/operators';
-import { filter } from 'lodash';
+import { debounceTime, filter, map, startWith, tap } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-author-editor',
@@ -33,8 +34,9 @@ export class AuthorEditorComponent implements OnInit {
 
   @Input() public authorsFromEditor: Author[];
   @Input() public allAuthors: Author[];
+  @Output() public authorsChanged = new EventEmitter<Author[]>();
+  public authors: Author[];
 
-  @Output() public authors: Author[];
 
   @ViewChild('authorInput') public authorInput: ElementRef<HTMLInputElement>;
 
@@ -47,10 +49,11 @@ export class AuthorEditorComponent implements OnInit {
     console.log(`author editor: ${temp}`);
     this.filteredAuthors = this.authorControl.valueChanges.pipe(
       // tslint:disable-next-line:deprecation
-      startWith(null),
-      tap((name) => console.log(`tap ${name}`)),
-      map((author: Author | null) =>
-        author ? this._filter(author) : this.allAuthors.slice()
+      startWith(''),
+      // tap((name) => console.log(`tap ${name}`)),
+      filter((name) => typeof name === 'string'),
+      map((name: string | null) =>
+        name ? this._filter(name) : this.allAuthors.slice()
       )
     );
     this.authors =
@@ -64,6 +67,7 @@ export class AuthorEditorComponent implements OnInit {
     // Add new author
     if ((value || '').trim()) {
       this.authors.push(this.createAuthor(value));
+      this.authorsChanged.emit(_.cloneDeep(this.authors));
     }
 
     // Reset the input value
@@ -79,6 +83,7 @@ export class AuthorEditorComponent implements OnInit {
 
     if (index >= 0) {
       this.authors.splice(index, 1);
+      this.authorsChanged.emit(_.cloneDeep(this.authors));
     }
   }
 
@@ -86,20 +91,25 @@ export class AuthorEditorComponent implements OnInit {
     this.authors.push(event.option.value);
     this.authorInput.nativeElement.value = '';
     this.authorControl.setValue(null);
+    this.authorsChanged.emit(_.cloneDeep(this.authors));
   }
 
-  private _filter(author: any): Author[] {
-    console.log(`_filter: ${author}`);
-    const filterName: string = author.name
-      ? author.name.trim().toLowerCase()
-      : author.trim().toLowerCase();
-    return this.allAuthors.filter((a) => {
-      return filterName.includes(' ')
-        ? a.name.toLowerCase().indexOf(filterName.split(' ')[0]) === 0 &&
-          a.name.toLowerCase().indexOf(` ${filterName.split(' ')[1]}`) === 0
-        : a.name.toLowerCase().indexOf(filterName) === 0;
-    }
+  private _filter(query: string): Author[] {
+    return this.allAuthors.filter(
+      (author) =>
+        this.authors.findIndex(
+          (alreadySelectedAuthor) =>
+            alreadySelectedAuthor.name.toLowerCase() ===
+            author.name.toLowerCase()
+        ) === -1 && author.name.toLowerCase().indexOf(query.toLowerCase()) === 0
     );
+    //  {
+    //   return filterName.includes(' ')
+    //     ? a.name.toLowerCase().indexOf(filterName.split(' ')[0]) === 0 &&
+    //       a.name.toLowerCase().indexOf(` ${filterName.split(' ')[1]}`) === 0
+    //     : a.name.toLowerCase().indexOf(filterName) === 0;
+    // }
+    // );
   }
 
   private getId(): number {
