@@ -14,7 +14,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
-import { debounceTime, filter, map, startWith, tap } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 @Component({
@@ -45,7 +45,6 @@ export class AuthorEditorComponent implements OnInit {
   constructor() {}
 
   public ngOnInit(): void {
-    const temp = JSON.stringify(this.allAuthors);
     this.filteredAuthors = this.authorControl.valueChanges.pipe(
       // tslint:disable-next-line:deprecation
       startWith(''),

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { login } from '../core/store/auth/actions/auth.actions';
 import { loginError } from '../core/store/app.state';
 import { AppState } from '../core/store//app.state';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm = this.fb.group({
+  public loginForm: FormGroup = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   });

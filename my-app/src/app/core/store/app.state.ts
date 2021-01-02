@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Author } from '../services/course/model/author';
 import { Course } from '../services/course/model/course';
 import * as auth from './auth/reducers/auth.reducers';
 import * as course from './courses/reducers/course.reducers';

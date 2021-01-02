@@ -5,8 +5,7 @@ import {
   exhaustMap,
   catchError,
   withLatestFrom,
-  tap,
-  switchMap,
+  tap
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CourseService } from '../../../services/course/course.service';

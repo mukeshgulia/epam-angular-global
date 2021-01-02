@@ -1,48 +1,55 @@
 <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
 <div class="container bg-light">
-  <form name="courseEditor" #f="ngForm" (ngSubmit)="submit()">
+  <form [formGroup]="courseEditForm" (ngSubmit)="submit()">
     <div class="form-group">
       <label for="title">Title:</label>
-      <input [class.has-error]="title.invalid && title.dirty" class="form-control" type="text"
-        placeholder="Provide course name" id="title" name="title" required ng-maxlength="50" #title="ngModel"
-        [(ngModel)]="course.name">
+      <input class="form-control" type="text" placeholder="Provide course name"
+        [class.has-error]="title.invalid && (title.dirty || title.touched)"
+        formControlName="title">
     </div>
 
     <div class="form-group">
       <label for="description">Description:</label>
-      <input [class.has-error]="description.invalid && description.dirty" class="form-control" type="text"
-        placeholder="Provide course description" id="description" name="description" required ng-maxlength="500"
-        #description="ngModel" [(ngModel)]="course.description">
+      <input class="form-control" type="text" placeholder="Provide description"
+        [class.has-error]="description.invalid && (description.dirty || description.touched)"
+        formControlName="description">
     </div>
 
     <div class="form-group">
       <label for="date">Creation Date:</label>
-      <input [class.has-error]="userDate.invalid && userDate.dirty" class="form-control" type="text"
-        placeholder="Enter date in format yyyy-mm-dd" id="date" name="date" required appDateValidator
-        #userDate="ngModel" [(ngModel)]="course.date"
-        [ngClass]="{'is-invalid': (userDate.touched || userDate.dirty) && !userDate.valid }">
+      <input class="form-control" type="text" placeholder="Enter date in format yyyy-mm-dd"
+        [class.has-error]="creationDate.invalid && (creationDate.dirty || creationDate.touched)"
+        formControlName="creationDate">
     </div>
 
     <div class="form-group">
       <label for="duration">Duration:
-        <span *ngIf="course.length && course.length > 0"><i class="far fa-clock"></i>
-          {{ course.length | duration }}</span>
+        <span *ngIf="duration.value && duration.value > 0"><i class="far fa-clock"></i>
+          {{ duration | duration }}</span>
       </label>
-      <input [class.has-error]="userDuration.invalid && userDuration.dirty" class="form-control" type="text"
-        placeholder="Provide minutes" id="duration" name="duration" required appNumberValidator #userDuration="ngModel"
-        [(ngModel)]="course.length"
-        [ngClass]="{'is-invalid': (userDuration.touched || userDuration.dirty) && !userDuration.valid }">
+      <input class="form-control" type="text" placeholder="Enter course length"
+        [class.has-error]="duration.invalid && (duration.dirty || duration.touched)"
+        formControlName="duration">
     </div>
 
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="toprated" name="toprated" [(ngModel)]="course.isTopRated">
+      <input class="form-check-input" type="checkbox"
+        [class.has-error]="topRated.invalid && (topRated.dirty || topRated.touched)"
+        formControlName="topRated">
+              <!-- <input class="form-check-input" type="checkbox" id="toprated" name="toprated" [(ngModel)]="course.isTopRated"> -->
       <label for="toprated">Top rated</label>
     </div>
 
     <div class="form-group">
-      <app-author-editor [authorsFromEditor]="course.authors" [allAuthors]="allAuthors"
+      <!-- <app-author-editor
+        [courseEditForm] = "courseEditForm"
+        [authorsFromEditor]="course.authors"
+        [allAuthors]="allAuthors"
+        (authorsChanged)="onauthorsChange($event)"></app-author-editor> -->
+      <app-author-editor [authorsFromEditor]="authors" [allAuthors]="allAuthors"
         (authorsChanged)="onauthorsChange($event)"></app-author-editor>
-      <!-- <input [class.has-error]="title.invalid && title.dirty"
+
+        <!-- <input [class.has-error]="title.invalid && title.dirty"
       class="form-control" type="text" placeholder="Provide authors" id="authors" name="authors" required
         [(ngModel)]="authors"> -->
     </div>
@@ -53,7 +60,7 @@
         <button class="btn btn-danger" (click)="cancel()" id="cancel-button">Cancel</button>
         <!-- <button class="btn btn-primary offset-1"
             (click)="isNew ? save() : update()" id="delete-button">Save</button> -->
-        <button class="btn btn-primary offset-1" id="delete-button" [disabled]="f.invalid">Save</button>
+        <button class="btn btn-primary offset-1" id="delete-button" [disabled]="courseEditForm.invalid">Save</button>
       </div>
     </div>
 

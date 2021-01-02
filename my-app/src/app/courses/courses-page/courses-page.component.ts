@@ -5,7 +5,7 @@ import { Course } from 'src/app/core/services/course/model/course';
 import { BreadCrumbsService } from 'src/app/core/services/bread-crumb/bread-crumb.service';
 import { Breadcrumb } from 'src/app/core/services/bread-crumb/model/bread-crumb';
 import { Observable } from 'rxjs';
-import { AppState, allCourses, authorsAll } from 'src/app/core/store/app.state';
+import { AppState, allCourses } from 'src/app/core/store/app.state';
 import { Store } from '@ngrx/store';
 import { deleteCourse, getCourses, searchCourse } from 'src/app/core/store/courses/actions/course.actions';
 
@@ -45,7 +45,7 @@ constructor(
   }
 
   public loadMore(): void {
-    this.store.dispatch(getCourses({loadMore: false}));
+    this.store.dispatch(getCourses({loadMore: true}));
     this.courses$ = this.store.select(allCourses);
     }
 }
