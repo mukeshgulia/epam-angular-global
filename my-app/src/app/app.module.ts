@@ -14,6 +14,9 @@ import { AuthEffects } from './core/store/auth/effects/auth.effects';
 import { AuthorEffects } from './core/store/authors/effects/author.effects';
 import { CoursesEffects } from './core/store/courses/effects/course.effects';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [ AppComponent, PageNotFoundComponent ],
@@ -24,8 +27,19 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     StoreModule.forRoot(reducers, {}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AuthEffects, CoursesEffects, AuthorEffects]),
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
