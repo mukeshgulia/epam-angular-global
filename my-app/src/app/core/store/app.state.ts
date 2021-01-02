@@ -38,6 +38,11 @@ export const userInfo = createSelector(
   (state) => state.userinfo
 );
 
+export const loginError = createSelector(
+  authFeatureSelector,
+  (state) => state.errorMessage
+);
+
 // course state selectors
 export const courseCount = createSelector(
   courseFeatureSelector,

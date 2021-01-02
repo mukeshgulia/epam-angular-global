@@ -22,7 +22,8 @@ const loginReducer = createReducer(
   on(userActions.loginSuccess, (state, result) => ({
     ...state,
     isAuthenticated: true,
-    token: result.token
+    token: result.token,
+    errorMessage: null
   })),
   on(userActions.loginFailure, (state, result) => ({
     ...state,
@@ -33,11 +34,13 @@ const loginReducer = createReducer(
   on(userActions.logout, (state) => ({...state,
     isAuthenticated: false,
     token: null,
-    userinfo: undefined
+    userinfo: undefined,
+    errorMessage: null
   })),
   on(userActions.userInfoSuccess, (state, result) => ({
     ...state,
-    userinfo: result.user
+    userinfo: result.user,
+    errorMessage: null
   })),
   on(userActions.userInfoFailure, (state, result) => ({
     ...state,
