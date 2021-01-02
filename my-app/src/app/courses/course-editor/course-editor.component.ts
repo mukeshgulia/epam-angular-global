@@ -152,7 +152,7 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
   }
 
   private getId(): number {
-    return Math.random() * 1000;
+    return Math.floor(1000 + Math.random() * 9000);
   }
 
 }
