@@ -5,6 +5,8 @@ import { OrderByPipe } from '../shared/pipes/order-by.pipe';
 import { HighlightDirective } from '../shared/directives/highlight.directive';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { DateHelper } from '../shared/utils/date-helper';
+import { DateValidatorDirective } from './directives/date.validator.directive';
+import { NumberValidatorDirective } from './directives/number.validator.directive';
 
 @NgModule({
   imports: [
@@ -12,12 +14,16 @@ import { DateHelper } from '../shared/utils/date-helper';
   ],
   declarations: [
     HighlightDirective,
+    DateValidatorDirective,
+    NumberValidatorDirective,
     DurationPipe,
     OrderByPipe,
     FilterPipe
 ],
 exports: [
   HighlightDirective,
+  DateValidatorDirective,
+  NumberValidatorDirective,
   DurationPipe,
   OrderByPipe,
   FilterPipe

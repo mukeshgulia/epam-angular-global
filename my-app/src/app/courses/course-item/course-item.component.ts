@@ -21,7 +21,6 @@ export class CourseItemComponent {
   constructor( private router: Router) { }
 
   public edit(): void {
-    console.log(`Editing course id: ${this.course.id}`);
     this.router.navigate(['courses', this.course.id]);
   }
 
