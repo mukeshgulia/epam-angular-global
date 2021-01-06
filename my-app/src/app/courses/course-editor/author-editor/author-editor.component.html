@@ -1,5 +1,5 @@
 <mat-form-field class="author-chip-list">
-  <mat-label>Authors</mat-label>
+  <mat-label>{{ 'course.authors' | translate }}</mat-label>
   <mat-chip-list #chipList aria-label="Author selection">
     <mat-chip
       *ngFor="let author of authors"
@@ -7,11 +7,11 @@
       [removable]="removable"
       (removed)="remove(author)">
       {{author.name}} {{author.lastName}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      <mat-icon matChipRemove *ngIf="removable">{{ 'course.cancel' | translate }}</mat-icon>
     </mat-chip>
     <input
       class="form-control"
-      placeholder="New Author..."
+      placeholder="{{ 'course.placeholders.authors' | translate }}..."
       type="text"
       id="authors"
       name="authors"

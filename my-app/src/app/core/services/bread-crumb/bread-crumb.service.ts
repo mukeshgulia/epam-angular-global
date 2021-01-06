@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Course } from '../course/model/course';
 import { Breadcrumb } from './model/bread-crumb';
 
@@ -7,12 +8,12 @@ import { Breadcrumb } from './model/bread-crumb';
 })
 export class BreadCrumbsService {
 
-  constructor() {}
+  constructor(private translate: TranslateService) {}
 
   public getCoursePageCrumbs(): Breadcrumb[] {
 
     const breadCrumbs: Breadcrumb[] = [];
-    breadCrumbs.push(new Breadcrumb('Courses', '/courses'));
+    breadCrumbs.push(new Breadcrumb(this.translate.instant('course.text'), '/courses'));
     return breadCrumbs;
 
   }
@@ -20,7 +21,7 @@ export class BreadCrumbsService {
   public getCourseEditorCrumbs(course: Course): Breadcrumb[] {
 
     const breadCrumbs: Breadcrumb[] = [];
-    breadCrumbs.push(new Breadcrumb('Courses', '/courses'));
+    breadCrumbs.push(new Breadcrumb(this.translate.instant('course.text'), '/courses'));
     breadCrumbs.push(new Breadcrumb(course.name));
     return breadCrumbs;
   }

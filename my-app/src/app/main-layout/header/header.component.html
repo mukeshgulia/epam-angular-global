@@ -9,7 +9,12 @@
         <a href="" class="header__link"><i class="fas fa-user$ | async"></i><span class="ml-2">{{ user$ | async }}</span></a>
       </div>
       <div *ngIf="user$ | async" class="p-2">
-        <a href="" class="header__link" (click)="logout()"><i class="fas fa-sign-out-alt"></i><span class="ml-2">Log off</span></a>
+        <a href="" class="header__link" (click)="logout()"><i class="fas fa-sign-out-alt"></i><span class="ml-2">{{ 'header.logoff' | translate }}</span></a>
+      </div>
+      <div>
+        <select (change)="onLanguageSelect($event.target.value)">
+          <option *ngFor="let lang of languagesEntries" [value]="lang[1]">{{ lang[0] }}</option>
+      </select>
       </div>
     </div>
   </div>

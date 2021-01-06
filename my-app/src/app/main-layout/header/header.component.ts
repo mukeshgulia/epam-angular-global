@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, userInfo } from 'src/app/core/store/app.state';
 import { logout } from 'src/app/core/store/auth/actions/auth.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +12,26 @@ import { logout } from 'src/app/core/store/auth/actions/auth.actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  public languages = new Map([
+    ['English', 'en'],
+    ['Russian', 'ru']
+  ]);
+
   public user: string;
   public user$: Observable<string>;
 
   public userSubscription: Subscription;
+  public languagesEntries: [string, string][];
 
-  constructor(private authStore: Store<AppState>) {}
+  constructor(private authStore: Store<AppState>, private translate: TranslateService) {
+    this.languagesEntries = Array.from(this.languages.entries());
+    translate.setDefaultLang('en');
+    translate.addLangs(Array.from(this.languages.values()));
+    translate.use(this.languages.get('English'));
+  }
 
   public ngOnInit(): void {
+    // this.languagesEntries = this.languages.entries();
     this.user$ = this.authStore.select(userInfo).pipe(
       filter((user) => !!user),
       map((user) => `${user.name.first} ${user.name.last}`)
@@ -46,5 +59,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public logout(): void {
     this.authStore.dispatch(logout());
     // this.authSerivce.logout();
+  }
+
+  public onLanguageSelect(language: string): void {
+    this.translate.use(language);
   }
 }

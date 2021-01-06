@@ -30,11 +30,11 @@
 
         <div class="row justify-content-center bg-light">
           <!-- Task 2  Load More-->
-          <a [routerLink]="['/courses']" (click)="loadMore()">Load More</a>
+          <a [routerLink]="['/courses']" (click)="loadMore()">{{ 'course.loadmore' | translate }}</a>
         </div>
       </div>
       <ng-template #elseBlock>
-          <p class="row justify-content-center" style="margin-top: 10px;">No Data. Feel free to add new app-add-course</p>
+          <p class="row justify-content-center" style="margin-top: 10px;">"{{ 'course.nodata' | translate }}"</p>
       </ng-template>
     </div>
 
