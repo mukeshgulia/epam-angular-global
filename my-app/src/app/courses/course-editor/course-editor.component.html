@@ -1,70 +1,61 @@
 <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
 <div class="container bg-light">
-    <form>
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide course name"
-          id="title" name="title"
-          required
-          [(ngModel)]="course.title">
-      </div>
+  <form name="courseEditor" #f="ngForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="title">{{ 'course.title' | translate }}:</label>
+      <input [class.has-error]="title.invalid && title.dirty" class="form-control" type="text"
+        placeholder="{{ 'course.placeholders.name' | translate }}" id="title" name="title" required ng-maxlength="50" #title="ngModel"
+        [(ngModel)]="course.name">
+    </div>
 
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide course description"
-          id="description" name="description"
-          required
-          [(ngModel)]="course.description">
-      </div>
+    <div class="form-group">
+      <label for="description">{{ 'course.description' | translate }}:</label>
+      <input [class.has-error]="description.invalid && description.dirty" class="form-control" type="text"
+        placeholder="{{ 'course.placeholders.desc' | translate }}" id="description" name="description" required ng-maxlength="500"
+        #description="ngModel" [(ngModel)]="course.description">
+    </div>
 
-      <div class="form-group">
-        <label for="date">Creation Date:</label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Enter date in format yyyy-mm-dd"
-          id="date" name="date"
-          required
-          [(ngModel)]="course.creationDate">
-      </div>
+    <div class="form-group">
+      <label for="date">{{ 'course.date' | translate }}:</label>
+      <input [class.has-error]="userDate.invalid && userDate.dirty" class="form-control" type="text"
+        placeholder="{{ 'course.placeholders.date' | translate }}" id="date" name="date" required appDateValidator
+        #userDate="ngModel" [(ngModel)]="course.date"
+        [ngClass]="{'is-invalid': (userDate.touched || userDate.dirty) && !userDate.valid }">
+    </div>
 
-      <div class="form-group">
-        <label for="duration">Duration:
-          <span *ngIf="course.duration && course.duration > 0"><i class="far fa-clock"></i> {{ course.duration | duration }}</span>
-        </label>
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Provide minutes"
-          id="duration" name="duration"
-          required
-          [(ngModel)]="course.duration">
-      </div>
+    <div class="form-group">
+      <label for="duration">{{ 'course.duration' | translate }}:
+        <span *ngIf="course.length && course.length > 0"><i class="far fa-clock"></i>
+          {{ course.length | duration }}</span>
+      </label>
+      <input [class.has-error]="userDuration.invalid && userDuration.dirty" class="form-control" type="text"
+        placeholder="{{ 'course.placeholders.duration' | translate }}" id="duration" name="duration" required appNumberValidator #userDuration="ngModel"
+        [(ngModel)]="course.length"
+        [ngClass]="{'is-invalid': (userDuration.touched || userDuration.dirty) && !userDuration.valid }">
+    </div>
 
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="toprated" name="toprated"
-          required
-          [(ngModel)]="course.topRated">
-          <label for="toprated">Top rated</label>
-      </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="toprated" name="toprated" [(ngModel)]="course.isTopRated">
+      <label for="toprated">{{ 'course.rated' | translate }}</label>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <button class="btn btn-danger"
-            (click)="cancel()" id="cancel-button">Cancel</button>
-          <button class="btn btn-primary offset-1"
-            (click)="isNew ? save() : update()" id="delete-button">Save</button>
-        </div>
-      </div>
+    <div class="form-group">
+      <app-author-editor [authorsFromEditor]="course.authors" [allAuthors]="allAuthors"
+        (authorsChanged)="onauthorsChange($event)"></app-author-editor>
+      <!-- <input [class.has-error]="title.invalid && title.dirty"
+      class="form-control" type="text" placeholder="Provide authors" id="authors" name="authors" required
+        [(ngModel)]="authors"> -->
+    </div>
 
-    </form>
-  </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-danger" (click)="cancel()" id="cancel-button">{{ 'course.cancel' | translate }}</button>
+        <!-- <button class="btn btn-primary offset-1"
+            (click)="isNew ? save() : update()" id="delete-button">Save</button> -->
+        <button class="btn btn-primary offset-1" id="delete-button" [disabled]="f.invalid">"{{ 'course.save' | translate }}"</button>
+      </div>
+    </div>
+
+  </form>
+</div>
